@@ -19,7 +19,22 @@ const (
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
+	Cyber := `
 
+ ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄    ▄▄▄  ░▄▄▄▄▄▄▄▄▄▄▄▄      ▄▄▄▄▄▄▄▄▄▄▄ ░▄▄▄▄▄▄▄▄▄     ░▄▄▄▄▄▄▄▄▄     ▄▄▄    ▄▄▄   ▄▄▄▄▄▄▄▄▄▄   ▄▄▄    ▄▄▄ 
+▒          █ ▒   █  █   █ ▓           ▀▀▄   ▒          █ ▓         ▀▄   ▓         ▀▄  ▒   █  █   █ ▒          █ ▒   █  █   █
+▀▀▀▀▀▀▀▀▀▀▀▀ ▓   █  █   █ ▀▀▀▀▀▀▀▀▄▄     ▀▄ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▄    █  ▀▀▀▀▀▀▀▄    █ ▀   █  █   █ ▀▀▀▀▀▀▀█   █ ▀▀▀▀▀  █   █
+ ▄▄▄         █   ▀▄▄▀   █  ▄▄▄▄▄    ▀▄    █  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▀    █   ▄▄▄▄▄▄▀    █ █   █  ▒   █ █▀▀▀█  ▒   █ █▀▀▀█▄▀    █
+▒   █        ▒          █ ▒    █ ▄▀▀▀   ▄▀  ▒          █ ▒          ▄▀  ▒          ▄▀ ▒   █  ▓   █ ▒   █  ▓   █ ▒        ▄▀ 
+▓   █        ▀▄▄▄▄▄▄▄   █ ▓    █ ▀▄▄▄▄   ▀▄ ▓   ▄▄▄▄▄▄▄▀ ▓    ▄▄   ▀▄   ▓    ▄▄▄▄▄▀   ▓   ▀  ▓   █ ▓   █  ▓   █ ▓   ▄▄    ▀▄
+░   █         ▄▄▄   █   █ ░    █  ▄▄▀     █ ░   ▄        ░    ▀ ▀▄   ▀▄ ░    ▀        ░   ▄  █   █ ░   ▄  █   █ ░   ▄ ▀▄   █
+▒   ▀▀▀▀▀▀▀█ ▒   █▄▄▀   █ ▒    ▀▀▀       ▄▀ ▒   ▀▀▀▀▀▀▀█ ▒    ▄  ▓    █ ▒    ▄        ▒   █▄▄▀   █ ▒   █  ▀   █ ▒   █  ▒   █
+▓          █ ▓          █ ▓           ▄▄▀   ▓          █ ▓    █  █    █ ▓    █        ▓          █ ▓   █  █   █ ▓   █  ▓   █
+▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
+                                                            
+										[ SYSTEM CYBERPUNK TERMINUS // v1.0 ]
+`
+	fmt.Print(Yellow + Cyber + Reset)
 	fmt.Println("=== INITIALISATION DU SYSTÈME CYBERPUNK ===")
 
 	fmt.Print("Entrez votre identifiant (Nom) : ")
@@ -59,9 +74,10 @@ func main() {
 		fmt.Println("├──────────────────────────────────────────────────┤")
 		fmt.Println("│  1. Afficher les informations du personnage      │")
 		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
-		fmt.Println("│  3. Quitter                                      │")
+		fmt.Println("│  3. Marché noir                                  │")
+		fmt.Println("│  4. Quitter                                      │")
 		fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
-		fmt.Print(Green + "Entrez votre choix (1-3) : " + Reset)
+		fmt.Print(Green + "Entrez votre choix (1-4) : " + Reset)
 
 		choiceInput, _ := reader.ReadString('\n')
 		choice := strings.TrimSpace(choiceInput)
@@ -70,24 +86,28 @@ func main() {
 
 		switch choice {
 		case "1":
-			// 1. Informations du personnage
+			// Informations du personnage
 			player.DisplayInfo()
 			promptReturn(reader)
 
 		case "2":
-			// 2. Inventaire
+			// Inventaire
 			player.AccessInventory()
 			promptReturn(reader)
 
 		case "3":
-			// 3. Quitter
+			// Visite chez le Charcudoc
+			player.DisplayCharcudoc()
+
+		case "4":
+			//  Quitter
 			fmt.Println(Red + "┌──────────────────────────────────────────────────┐")
 			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE BYE.      │")
 			fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
 			return // Arrête le programme
 
 		default:
-			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2 ou 3." + Reset)
+			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2, 3ou 4." + Reset)
 		}
 	}
 }

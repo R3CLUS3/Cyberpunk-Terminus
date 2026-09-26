@@ -47,7 +47,7 @@ func (c Character) DisplayInfo() {
 	fmt.Printf("│  [ORIGINE]     : %-31s │\n", c.Class)
 	fmt.Printf("│  [NIVEAU]      : %-31d │\n", c.Level)
 	fmt.Println("├──────────────────────────────────────────────────┤")
-	fmt.Printf("│  [SANTÉ]       : %-3d / %-3d [%s]        │\n", c.CurrentHP, c.MaxHP, hpBar)
+	fmt.Printf("│  [SANTÉ]       : %-3d / %-3d [%s]          │\n", c.CurrentHP, c.MaxHP, hpBar)
 	fmt.Println("├──────────────────────────────────────────────────┤")
 	fmt.Printf("│  [INVENTAIRE]  : %-31s │\n", invStr)
 	fmt.Println("└──────────────────────────────────────────────────┘")
