@@ -69,45 +69,65 @@ func main() {
 
 	// --- BOUCLE DU MENU PRINCIPAL ---
 	for {
-		fmt.Println("\n┌──────────────────────────────────────────────────┐")
+		perso.ClearScreen() // Nettoie l'écran avant d'afficher le menu principal
+		fmt.Println("┌──────────────────────────────────────────────────┐")
 		fmt.Println("│             SYS.NET // MENU PRINCIPAL            │")
 		fmt.Println("├──────────────────────────────────────────────────┤")
+		fmt.Println("│  H. Aide & Guide du jeu                          │")
 		fmt.Println("│  1. Afficher les informations du personnage      │")
 		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
 		fmt.Println("│  3. Visiter le Marchand                          │")
 		fmt.Println("│  4. Atelier Cyberware (Forgeron)                 │")
 		fmt.Println("│  5. Lancer un combat d'entraînement              │")
-		fmt.Println("│  6. Quitter                                      │")
+		fmt.Println("│  6. Raid Complexe Militech (Mini-carte)          │")
+		fmt.Println("│  7. Raid Arasaka Tower (Mini-carte)              │")
+		fmt.Println("│  8. Duel contre les Légendes de Night City       │")
+		fmt.Println("│  9. Quitter                                      │")
 		fmt.Println("└──────────────────────────────────────────────────┘")
-		fmt.Print("Entrez votre choix (1-6) : ")
+		fmt.Print("Entrez votre choix (1-9) : ")
 
 		choiceInput, _ := reader.ReadString('\n')
 		choice := strings.TrimSpace(choiceInput)
 
-		fmt.Println()
-
 		switch choice {
+		case "h":
+			perso.DisplayHelp(reader)
 		case "1":
+			perso.ClearScreen()
 			player.DisplayInfo()
 			promptReturn(reader)
 		case "2":
+			perso.ClearScreen()
 			player.AccessInventory()
 		case "3":
+			perso.ClearScreen()
 			player.DisplayVendeur()
 		case "4":
+			perso.ClearScreen()
 			player.DisplayForgeron()
 		case "5":
+			perso.ClearScreen()
 			player.StartTrainingFight()
 			promptReturn(reader)
-
 		case "6":
+			perso.ClearScreen()
+			player.StartRaidMilitech()
+			promptReturn(reader)
+		case "7":
+			perso.ClearScreen()
+			player.StartRaidArasaka()
+			promptReturn(reader)
+		case "8":
+			perso.ClearScreen()
+			player.StartLegendDuel()
+
+		case "9":
 			fmt.Println("┌──────────────────────────────────────────────────┐")
 			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE.          │")
 			fmt.Println("└──────────────────────────────────────────────────┘")
 			return
-
 		default:
-			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 6.")
+			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 7.")
 		}
 	}
 }

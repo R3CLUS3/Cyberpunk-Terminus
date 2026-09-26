@@ -1,0 +1,112 @@
+package perso
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+// GetLegendsCatalogue renvoie la liste des légendes affrontables
+func GetLegendsCatalogue() []Monster {
+	return []Monster{
+		{
+			Name:      "Rebecca",
+			MaxHP:     250,
+			CurrentHP: 250,
+			Attack:    28,
+			RewardED:  500,
+			RewardXP:  500,
+		},
+		{
+			Name:      "Lucy",
+			MaxHP:     220,
+			CurrentHP: 220,
+			Attack:    35,
+			RewardED:  500,
+			RewardXP:  300,
+		},
+		{
+			Name:      "David Martinez",
+			MaxHP:     320,
+			CurrentHP: 320,
+			Attack:    45,
+			RewardED:  800,
+			RewardXP:  500,
+		},
+		{
+			Name:      "V (Mercenaire de Légende)",
+			MaxHP:     420,
+			CurrentHP: 420,
+			Attack:    55,
+			RewardED:  1200,
+			RewardXP:  750,
+		},
+		{
+			Name:      "Adam Smasher",
+			MaxHP:     999,
+			CurrentHP: 999,
+			Attack:    65,
+			RewardED:  2000,
+			RewardXP:  1000,
+		},
+	}
+}
+
+// StartLegendDuel lance le menu de sélection et le combat contre une légende
+func (c *Character) StartLegendDuel() {
+	reader := bufio.NewReader(os.Stdin)
+	legends := GetLegendsCatalogue()
+
+	for {
+		if c.IsDead() {
+			return
+		}
+
+		ClearScreen()
+		fmt.Println("⚡ ========================================== ⚡")
+		fmt.Println("       SYS.NET // ARENE DES LÉGENDES DE NC    ")
+		fmt.Println("⚡ ========================================== ⚡")
+		fmt.Println("Choisissez un adversaire pour un duel en 1v1 :\n")
+
+		for i, legend := range legends {
+			fmt.Printf("  %d. %-26s (PV: %d | ATK: %d)\n", i+1, legend.Name, legend.MaxHP, legend.Attack)
+		}
+		fmt.Println("  0. Retour au menu principal")
+		fmt.Println("----------------------------------------------")
+		fmt.Print("Votre choix (0-5) : ")
+
+		choiceInput, _ := reader.ReadString('\n')
+		choice := strings.TrimSpace(choiceInput)
+
+		if choice == "0" {
+			return
+		}
+
+		var selectedIdx int
+		_, err := fmt.Sscanf(choice, "%d", &selectedIdx)
+
+		if err != nil || selectedIdx < 1 || selectedIdx > len(legends) {
+			fmt.Println("\n⚠️ Choix invalide.")
+			continue
+		}
+
+		// Copie de l'adversaire sélectionné
+		boss := legends[selectedIdx-1]
+
+		ClearScreen()
+		fmt.Printf("⚔️  [DUEL DÉCLENCHÉ] %s s'avance dans l'arène !\n", boss.Name)
+		fmt.Println("──────────────────────────────────────────────")
+
+		// Réutilisation du moteur de combat de raid
+		c.fightRaidEnemy(&boss)
+
+		if boss.IsDead() {
+			fmt.Printf("\n🏆 [EXPLOIT MONUMENTAL] Vous avez vaincu %s !\n", boss.Name)
+			fmt.Printf("💵 Récompense : +%d $ED\n", boss.RewardED)
+		}
+
+		fmt.Print("\nAppuyez sur Entrée pour continuer...")
+		reader.ReadString('\n')
+	}
+}

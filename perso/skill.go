@@ -6,8 +6,10 @@ import (
 )
 
 type Skill struct {
-	Name   string
-	Damage int
+	Name    string
+	Damage  int
+	Uses    int  // -1 = infini, >0 = nombre de charges
+	IsFatal bool // true = déclenche la mort si Uses atteint 0
 }
 
 // PuceDeCombat applique l'amélioration du Coup de poing / Hacking (+5 dégâts)

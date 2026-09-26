@@ -33,22 +33,22 @@ func InitCharacter(name string, classChoice string) Character {
 	case "1":
 		className = "Gosse des rues"
 		maxHP = 100
-		startingMoney = 150
+		startingMoney = 1500
 		baseSkill = Skill{Name: "Coup de poing", Damage: 10}
 	case "2":
 		className = "Nomade"
 		maxHP = 120
-		startingMoney = 100
+		startingMoney = 1000
 		baseSkill = Skill{Name: "Tir de précision", Damage: 12}
 	case "3":
 		className = "Corpo"
 		maxHP = 90
-		startingMoney = 300
+		startingMoney = 1500
 		baseSkill = Skill{Name: "Piratage rapide", Damage: 15}
 	default:
 		className = "Gosse des rues"
 		maxHP = 100
-		startingMoney = 150
+		startingMoney = 1500
 		baseSkill = Skill{Name: "Coup de poing", Damage: 10}
 	}
 
