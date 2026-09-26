@@ -70,7 +70,7 @@ func (c *Character) StartLegendDuel() {
 		fmt.Println("Choisissez un adversaire pour un duel en 1v1 :\n")
 
 		for i, legend := range legends {
-			fmt.Printf("  %d. %-26s (PV: %d | ATK: %d)\n", i+1, legend.Name, legend.MaxHP, legend.Attack)
+			fmt.Printf("  %d. %-26s (PV: %d | ATK: %d)\n", i+1, legend.Name)
 		}
 		fmt.Println("  0. Retour au menu principal")
 		fmt.Println("----------------------------------------------")

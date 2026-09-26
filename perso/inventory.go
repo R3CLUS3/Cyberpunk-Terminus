@@ -7,23 +7,6 @@ import (
 	"strings"
 )
 
-// EquipArmor applique les bonus de protection
-func (c *Character) EquipArmor(armorName string, bonusHP int) {
-	// Retire l'ancien bonus s'il y en avait un
-	c.MaxHP -= c.ArmorBonus
-	if c.CurrentHP > c.MaxHP {
-		c.CurrentHP = c.MaxHP
-	} // <-- Cette accolade manquait !
-
-	// Applique la nouvelle armure
-	c.EquippedArmor = armorName
-	c.ArmorBonus = bonusHP
-	c.MaxHP += bonusHP
-	c.CurrentHP += bonusHP
-
-	fmt.Printf("\n🛡️  [%s] équipée avec succès ! (+%d HP Max)\n", armorName, bonusHP)
-}
-
 // AccessInventory gère l'affichage et l'équipement des objets
 func (c *Character) AccessInventory() {
 	reader := bufio.NewReader(os.Stdin)
