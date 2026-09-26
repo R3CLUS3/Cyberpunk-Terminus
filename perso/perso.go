@@ -22,6 +22,25 @@ type Character struct {
 	ArmorBonus    int
 }
 
+// CanAddInventory vérifie si l'inventaire n'est pas plein
+func (c *Character) CanAddInventory() bool {
+	return len(c.Inventory) < c.MaxInventory
+}
+
+// AddInventory ajoute un objet à l'inventaire si de la place est disponible
+func (c *Character) AddInventory(item string) {
+	if c.CanAddInventory() {
+		c.Inventory = append(c.Inventory, item)
+	}
+}
+
+// RemoveInventory retire un objet de l'inventaire selon son index
+func (c *Character) RemoveInventory(index int) {
+	if index >= 0 && index < len(c.Inventory) {
+		c.Inventory = append(c.Inventory[:index], c.Inventory[index+1:]...)
+	}
+}
+
 // InitCharacter crée un nouveau personnage avec la classe choisie
 func InitCharacter(name string, classChoice string) Character {
 	var className string

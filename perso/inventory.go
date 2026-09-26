@@ -7,88 +7,82 @@ import (
 	"strings"
 )
 
-// CanAddInventory vérifie si l'inventaire n'est pas plein
-func (c *Character) CanAddInventory() bool {
-	return len(c.Inventory) < c.MaxInventory
+// EquipArmor applique les bonus de protection
+func (c *Character) EquipArmor(armorName string, bonusHP int) {
+	// Retire l'ancien bonus s'il y en avait un
+	c.MaxHP -= c.ArmorBonus
+	if c.CurrentHP > c.MaxHP {
+		c.CurrentHP = c.MaxHP
+	} // <-- Cette accolade manquait !
+
+	// Applique la nouvelle armure
+	c.EquippedArmor = armorName
+	c.ArmorBonus = bonusHP
+	c.MaxHP += bonusHP
+	c.CurrentHP += bonusHP
+
+	fmt.Printf("\n🛡️  [%s] équipée avec succès ! (+%d HP Max)\n", armorName, bonusHP)
 }
 
-// AddInventory ajoute un objet seulement si la limite n'est pas atteinte
-func (c *Character) AddInventory(item string) bool {
-	if !c.CanAddInventory() {
-		fmt.Printf("\n❌ Inventaire plein (%d/%d) ! Impossible d'ajouter : %s\n", len(c.Inventory), c.MaxInventory, item)
-		return false
-	}
-
-	c.Inventory = append(c.Inventory, item)
-	fmt.Printf("\n[+] %s a été ajouté à votre inventaire (%d/%d) !\n", item, len(c.Inventory), c.MaxInventory)
-	return true
-}
-
-// RemoveInventory (identique à avant)
-func (c *Character) RemoveInventory(itemIndex int) {
-	if itemIndex >= 0 && itemIndex < len(c.Inventory) {
-		c.Inventory = append(c.Inventory[:itemIndex], c.Inventory[itemIndex+1:]...)
-	}
-}
-
-// AccessInventory (affichage de la jauge d'inventaire)
+// AccessInventory gère l'affichage et l'équipement des objets
 func (c *Character) AccessInventory() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
+		ClearScreen()
 		fmt.Println("┌──────────────────────────────────────────────────┐")
-		fmt.Printf("│ SYS.NET // STOCKAGE & EQUIPEMENT [%02d/%02d]      │\n", len(c.Inventory), c.MaxInventory)
+		fmt.Println("│             SYS.NET // INVENTAIRE                │")
 		fmt.Println("├──────────────────────────────────────────────────┤")
-
 		if len(c.Inventory) == 0 {
-			fmt.Println("│  [VIDE] : Aucun objet dans le stock.             │")
-			fmt.Println("└──────────────────────────────────────────────────┘")
-			return
+			fmt.Println("│  (Inventaire vide)                               │")
+		} else {
+			for i, item := range c.Inventory {
+				fmt.Printf("│  %2d. %-43s│\n", i+1, item)
+			}
 		}
-
-		for i, item := range c.Inventory {
-			fmt.Printf("│  [%02d] %-40s │\n", i+1, item)
-		}
-		fmt.Println("├──────────────────────────────────────────────────┤")
-		fmt.Println("│  [0]  Retour au menu principal                   │")
 		fmt.Println("└──────────────────────────────────────────────────┘")
-		fmt.Print("Entrez le numéro de l'objet à utiliser : ")
+		fmt.Println("Entrez le numéro d'un objet à utiliser / équiper (0 pour quitter) :")
+		fmt.Print("Choix : ")
 
-		choiceInput, _ := reader.ReadString('\n')
-		choice := strings.TrimSpace(choiceInput)
+		input, _ := reader.ReadString('\n')
+		choice := strings.TrimSpace(input)
 
 		if choice == "0" {
 			return
 		}
 
-		var selectedIndex int
-		_, err := fmt.Sscanf(choice, "%d", &selectedIndex)
-		if err != nil || selectedIndex < 1 || selectedIndex > len(c.Inventory) {
-			fmt.Println("\n Choix invalide.")
+		var itemIdx int
+		_, err := fmt.Sscanf(choice, "%d", &itemIdx)
+
+		if err != nil || itemIdx < 1 || itemIdx > len(c.Inventory) {
+			fmt.Println("\n⚠️ Choix invalide.")
+			fmt.Print("\nAppuyez sur Entrée pour continuer...")
+			reader.ReadString('\n')
 			continue
 		}
 
-		item := c.Inventory[selectedIndex-1]
+		idx := itemIdx - 1
+		selectedItem := c.Inventory[idx]
 
-		if strings.EqualFold(item, "Stimpack") {
-			c.Heal(selectedIndex - 1)
-		} else if strings.EqualFold(item, "Grenade Neurotoxique") {
-			c.RemoveInventory(selectedIndex - 1)
-			c.Poison()
-		} else if strings.EqualFold(item, "Puce de combat") {
-			c.RemoveInventory(selectedIndex - 1)
-			c.PuceDeCombat()
-		} else if strings.EqualFold(item, "Plastron de Mercenaire") {
-			c.RemoveInventory(selectedIndex - 1)
-			c.EquipArmor("Plastron de Mercenaire", 40)
-		} else if strings.EqualFold(item, "Plastron de soldat Arasaka") {
-			c.RemoveInventory(selectedIndex - 1)
-			c.EquipArmor("Plastron de soldat Arasaka", 50)
-		} else if strings.EqualFold(item, "Veste de David Martinez") {
-			c.RemoveInventory(selectedIndex - 1)
-			c.EquipArmor("Veste de David Martinez", 60) // Bonus unique de +60 HP
-		} else {
-			fmt.Printf("\n Impossible d'utiliser %s pour le moment.\n", item)
+		switch {
+		case strings.EqualFold(selectedItem, "Stimpack"):
+			c.Heal(idx)
+
+		case strings.EqualFold(selectedItem, "Veste de David Martinez") || strings.EqualFold(selectedItem, "Veste de David"):
+			c.EquipArmor(selectedItem, 30)
+			// Retire l'objet de l'inventaire après équipement
+			c.Inventory = append(c.Inventory[:idx], c.Inventory[idx+1:]...)
+
+		case strings.EqualFold(selectedItem, "Pare-balle Arasaka"):
+			c.EquipArmor(selectedItem, 50)
+			// Retire l'objet de l'inventaire après équipement
+			c.Inventory = append(c.Inventory[:idx], c.Inventory[idx+1:]...)
+
+		default:
+			fmt.Printf("\n⚠️ Impossible d'équiper ou d'utiliser [%s] directement.\n", selectedItem)
 		}
+
+		fmt.Print("\nAppuyez sur Entrée pour continuer...")
+		reader.ReadString('\n')
 	}
 }
