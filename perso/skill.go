@@ -1,45 +1,35 @@
 package perso
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-// Skill représente une capacité du personnage
 type Skill struct {
 	Name   string
 	Damage int
 }
 
-// AddSkillAjoute une compétence si elle n'est pas déjà possédée
-func (c *Character) AddSkill(newSkill Skill) bool {
-	for _, s := range c.Skills {
-		if s.Name == newSkill.Name {
-			return false // Déjà possédée
-		}
-	}
-	c.Skills = append(c.Skills, newSkill)
-	return true
-}
-
-// PuceDeCombat applique l'amélioration du Coup de poing (+5 dégâts = 12 au total)
+// PuceDeCombat applique l'amélioration du Coup de poing / Hacking (+5 dégâts)
 func (c *Character) PuceDeCombat() {
-	// Vérifie si la puce de combat est déjà active
-	for _, s := range c.Skills {
-		if s.Name == "Puce de combat" {
+	// Vérification dans les implants déjà équipés
+	for _, imp := range c.Implants {
+		if strings.Contains(imp, "Puce de combat") {
 			fmt.Println("\n⚠️ La Puce de combat est déjà installée dans votre système !")
 			return
 		}
 	}
 
-	// Ajout de la puce dans la liste des compétences
-	c.AddSkill(Skill{Name: "Puce de combat", Damage: 0})
-
-	// Renforcement du Coup de poing (7 -> 12)
-	for i, s := range c.Skills {
-		if s.Name == "Coup de poing" {
-			c.Skills[i].Damage = 12
-			break
-		}
+	// Augmentation des dégâts du premier sort du joueur
+	if len(c.Skills) > 0 {
+		c.Skills[0].Damage += 5
 	}
 
-	fmt.Println("\n⚙️ [IMPLANT INSTALLÉ] Puce de combat activée !")
-	fmt.Println("💪 Ton Coup de poing passe à 12 points de dégâts !")
+	// Ajout de l'implant dans la liste des implants équipés
+	c.Implants = append(c.Implants, "Puce de combat (+5 dmg)")
+
+	fmt.Println("\n[IMPLANT INSTALLÉ] Puce de combat activée !")
+	fmt.Printf("Votre compétence de base passe à %d points de dégâts !\n\n", c.Skills[0].Damage)
+
+	c.DisplayInfo()
 }

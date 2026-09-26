@@ -7,23 +7,37 @@ import (
 	"strings"
 )
 
-func (c *Character) AddInventory(item string) {
-	c.Inventory = append(c.Inventory, item)
-	fmt.Printf("\n[+] %s a été ajouté à votre inventaire !\n", item)
+// CanAddInventory vérifie si l'inventaire n'est pas plein
+func (c *Character) CanAddInventory() bool {
+	return len(c.Inventory) < c.MaxInventory
 }
 
+// AddInventory ajoute un objet seulement si la limite n'est pas atteinte
+func (c *Character) AddInventory(item string) bool {
+	if !c.CanAddInventory() {
+		fmt.Printf("\n❌ Inventaire plein (%d/%d) ! Impossible d'ajouter : %s\n", len(c.Inventory), c.MaxInventory, item)
+		return false
+	}
+
+	c.Inventory = append(c.Inventory, item)
+	fmt.Printf("\n[+] %s a été ajouté à votre inventaire (%d/%d) !\n", item, len(c.Inventory), c.MaxInventory)
+	return true
+}
+
+// RemoveInventory (identique à avant)
 func (c *Character) RemoveInventory(itemIndex int) {
 	if itemIndex >= 0 && itemIndex < len(c.Inventory) {
 		c.Inventory = append(c.Inventory[:itemIndex], c.Inventory[itemIndex+1:]...)
 	}
 }
 
+// AccessInventory (affichage de la jauge d'inventaire)
 func (c *Character) AccessInventory() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
 		fmt.Println("┌──────────────────────────────────────────────────┐")
-		fmt.Println("│           SYS.NET // STOCKAGE & EQUIPEMENT       │")
+		fmt.Printf("│ SYS.NET // STOCKAGE & EQUIPEMENT [%02d/%02d]      │\n", len(c.Inventory), c.MaxInventory)
 		fmt.Println("├──────────────────────────────────────────────────┤")
 
 		if len(c.Inventory) == 0 {

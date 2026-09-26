@@ -70,45 +70,44 @@ func main() {
 
 	// --- BOUCLE DU MENU PRINCIPAL ---
 	for {
-		fmt.Println(Blue + " \n┌──────────────────────────────────────────────────┐")
+		fmt.Println("\n┌──────────────────────────────────────────────────┐")
 		fmt.Println("│             SYS.NET // MENU PRINCIPAL            │")
 		fmt.Println("├──────────────────────────────────────────────────┤")
 		fmt.Println("│  1. Afficher les informations du personnage      │")
 		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
-		fmt.Println("│  3. Marché noir                                  │")
-		fmt.Println("│  4. Quitter                                      │")
-		fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
-		fmt.Print(Green + "Entrez votre choix (1-4) : " + Reset)
+		fmt.Println("│  3. Visiter le Marchand                          │")
+		fmt.Println("│  4. Atelier Cyberware (Forgeron)                 │")
+		fmt.Println("│  5. Quitter                                      │")
+		fmt.Println("└──────────────────────────────────────────────────┘")
+		fmt.Print("Entrez votre choix (1-5) : ")
 
 		choiceInput, _ := reader.ReadString('\n')
 		choice := strings.TrimSpace(choiceInput)
 
-		fmt.Println() // Ligne d'espacement pour la lisibilité
+		fmt.Println()
 
 		switch choice {
 		case "1":
-			// Informations du personnage
 			player.DisplayInfo()
 			promptReturn(reader)
 
 		case "2":
-			// Inventaire
 			player.AccessInventory()
-			promptReturn(reader)
 
 		case "3":
-			// Visite chez le Charcudoc
 			player.DisplayVendeur()
 
 		case "4":
-			//  Quitter
-			fmt.Println(Red + "┌──────────────────────────────────────────────────┐")
-			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE BYE.      │")
-			fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
-			return // Arrête le programme
+			player.DisplayForgeron()
+
+		case "5":
+			fmt.Println("┌──────────────────────────────────────────────────┐")
+			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE.          │")
+			fmt.Println("└──────────────────────────────────────────────────┘")
+			return
 
 		default:
-			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2, 3 ou 4." + Reset)
+			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 5.")
 		}
 	}
 }
