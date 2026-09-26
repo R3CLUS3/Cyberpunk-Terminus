@@ -97,7 +97,7 @@ func main() {
 
 		case "3":
 			// Visite chez le Charcudoc
-			player.DisplayCharcudoc()
+			player.DisplayVendeur()
 
 		case "4":
 			//  Quitter
@@ -107,7 +107,7 @@ func main() {
 			return // Arrête le programme
 
 		default:
-			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2, 3ou 4." + Reset)
+			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2, 3 ou 4." + Reset)
 		}
 	}
 }
