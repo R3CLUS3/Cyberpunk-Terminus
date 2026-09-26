@@ -1,11 +1,20 @@
 package main
 
 import (
-	"Cyberpunk_Terminus/perso"
 	"bufio"
 	"fmt"
 	"os"
 	"strings"
+
+	"Cyberpunk_Terminus/perso"
+)
+
+const (
+	Red    = "\033[31m"
+	Green  = "\033[32m"
+	Yellow = "\033[33m"
+	Blue   = "\033[34m"
+	Reset  = "\033[0m"
 )
 
 func main() {
@@ -38,8 +47,53 @@ func main() {
 		class = "Gosse des rues"
 	}
 
+	// Création du personnage
 	player := perso.InitCharacter(name, class, 1, 100, 100, []string{"Cyberdeck v1", "Stimpack"})
 
 	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS]")
-	player.DisplayInfo()
+
+	// --- BOUCLE DU MENU PRINCIPAL ---
+	for {
+		fmt.Println(Blue + " \n┌──────────────────────────────────────────────────┐")
+		fmt.Println("│             SYS.NET // MENU PRINCIPAL            │")
+		fmt.Println("├──────────────────────────────────────────────────┤")
+		fmt.Println("│  1. Afficher les informations du personnage      │")
+		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
+		fmt.Println("│  3. Quitter                                      │")
+		fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
+		fmt.Print(Green + "Entrez votre choix (1-3) : " + Reset)
+
+		choiceInput, _ := reader.ReadString('\n')
+		choice := strings.TrimSpace(choiceInput)
+
+		fmt.Println() // Ligne d'espacement pour la lisibilité
+
+		switch choice {
+		case "1":
+			// 1. Informations du personnage
+			player.DisplayInfo()
+			promptReturn(reader)
+
+		case "2":
+			// 2. Inventaire
+			player.AccessInventory()
+			promptReturn(reader)
+
+		case "3":
+			// 3. Quitter
+			fmt.Println(Red + "┌──────────────────────────────────────────────────┐")
+			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE BYE.      │")
+			fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
+			return // Arrête le programme
+
+		default:
+			fmt.Println(Red + "Choix invalide. Veuillez saisir 1, 2 ou 3." + Reset)
+		}
+	}
+}
+
+// Function utilitaire pour faire une pause et attendre l'entrée utilisateur ("Retour")
+func promptReturn(reader *bufio.Reader) {
+	fmt.Print("\n[Appuyez sur Entrée pour revenir au menu principal...]")
+	reader.ReadString('\n')
 }
