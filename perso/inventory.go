@@ -78,6 +78,15 @@ func (c *Character) AccessInventory() {
 		} else if strings.EqualFold(item, "Puce de combat") {
 			c.RemoveInventory(selectedIndex - 1)
 			c.PuceDeCombat()
+		} else if strings.EqualFold(item, "Plastron de Mercenaire") {
+			c.RemoveInventory(selectedIndex - 1)
+			c.EquipArmor("Plastron de Mercenaire", 40)
+		} else if strings.EqualFold(item, "Plastron de soldat Arasaka") {
+			c.RemoveInventory(selectedIndex - 1)
+			c.EquipArmor("Plastron de soldat Arasaka", 50)
+		} else if strings.EqualFold(item, "Veste de David Martinez") {
+			c.RemoveInventory(selectedIndex - 1)
+			c.EquipArmor("Veste de David Martinez", 60) // Bonus unique de +60 HP
 		} else {
 			fmt.Printf("\n Impossible d'utiliser %s pour le moment.\n", item)
 		}

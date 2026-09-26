@@ -8,24 +8,36 @@ import (
 )
 
 var (
-	stimpackStock = 5
-	stimpackPrice = 20
+	stimpackStock = 10
+	stimpackPrice = 199
 
-	poisonStock = 3
-	poisonPrice = 30
+	poisonStock = 6
+	poisonPrice = 299
+
+	puceStock = 1
+	pucePrice = 500
 
 	sacStock = 2
-	sacPrice = 40
+	sacPrice = 399
 
 	// Composants d'artisanat achetables
-	compCStock = 5
-	compCPrice = 30
+	compCStock = 20
+	compCPrice = 99
 
-	compBStock = 3
-	compBPrice = 75
+	compBStock = 15
+	compBPrice = 129
 
-	compAStock = 1
-	compAPrice = 150
+	compAStock = 2
+	compAPrice = 399
+
+	mercenaireStock = 1
+	mercenairePrice = 799
+
+	arasakaStock = 1
+	arasakaPrice = 999
+
+	davidJacketStock = 1
+	davidJacketPrice = 2100
 )
 
 func (c *Character) DisplayVendeur() {
@@ -40,15 +52,20 @@ func (c *Character) DisplayVendeur() {
 		fmt.Println("├──────────────────────────────────────────────────┤")
 		fmt.Printf("│  1. Stimpack (+50 HP)        -- %d $ED (Stock: %d)│\n", stimpackPrice, stimpackStock)
 		fmt.Printf("│  2. Grenade Neurotoxique    -- %d $ED (Stock: %d)│\n", poisonPrice, poisonStock)
-		fmt.Printf("│  3. Extension Sac (+5 places)-- %d $ED (Stock: %d)│\n", sacPrice, sacStock)
+		fmt.Printf("│  3. Puce de combat (Upgrade) -- %d $ED (Stock: %d)│\n", pucePrice, puceStock)
+		fmt.Printf("│  4. Extension Sac (+5 places)-- %d $ED (Stock: %d)│\n", sacPrice, sacStock)
 		fmt.Println("├──────────────────────────────────────────────────┤")
-		fmt.Printf("│  4. Composant Rang C        -- %d $ED (Stock: %d)│\n", compCPrice, compCStock)
-		fmt.Printf("│  5. Composant Rang B        -- %d $ED (Stock: %d)│\n", compBPrice, compBStock)
-		fmt.Printf("│  6. Composant Rang A        -- %d $ED (Stock: %d)│\n", compAPrice, compAStock)
+		fmt.Printf("│  5. Composant Rang C        -- %d $ED (Stock: %d)│\n", compCPrice, compCStock)
+		fmt.Printf("│  6. Composant Rang B        -- %d $ED (Stock: %d)│\n", compBPrice, compBStock)
+		fmt.Printf("│  7. Composant Rang A        -- %d $ED (Stock: %d)│\n", compAPrice, compAStock)
+		fmt.Println("├──────────────────────────────────────────────────┤")
+		fmt.Printf("│  8. Plastron Mercenaire (+40 HP)-- %d $ED (Stock: %d)│\n", mercenairePrice, mercenaireStock)
+		fmt.Printf("│  9. Plastron Arasaka    (+50 HP)-- %d $ED (Stock: %d)│\n", arasakaPrice, arasakaStock)
+		fmt.Printf("│ 10. Veste David Martinez        -- %d $ED (Stock: %d)│\n", davidJacketPrice, davidJacketStock)
 		fmt.Println("├──────────────────────────────────────────────────┤")
 		fmt.Println("│  0. Retour au menu principal                     │")
 		fmt.Println("└──────────────────────────────────────────────────┘")
-		fmt.Print("Choisissez un article à acheter (0-6) : ")
+		fmt.Print("Choisissez un article à acheter (0-7) : ")
 
 		choiceInput, _ := reader.ReadString('\n')
 		choice := strings.TrimSpace(choiceInput)
@@ -59,6 +76,28 @@ func (c *Character) DisplayVendeur() {
 		case "2":
 			c.buyConsumable(&poisonStock, poisonPrice, "Grenade Neurotoxique")
 		case "3":
+			hasPuce := false
+			for _, imp := range c.Implants {
+				if strings.Contains(imp, "Puce de combat") {
+					hasPuce = true
+					break
+				}
+			}
+
+			if hasPuce {
+				fmt.Println("\n❌ Puce déjà installée !")
+			} else if !c.CanAddInventory() {
+				fmt.Println("\n❌ Votre inventaire est plein !")
+			} else if puceStock <= 0 {
+				fmt.Println("\n❌ Rupture de stock !")
+			} else if c.Money < pucePrice {
+				fmt.Println("\n❌ Fonds insuffisants !")
+			} else {
+				c.Money -= pucePrice
+				puceStock--
+				c.AddInventory("Puce de combat")
+			}
+		case "4":
 			if sacStock <= 0 {
 				fmt.Println("\n❌ Limite d'achat de sacs atteinte !")
 			} else if c.Money < sacPrice {
@@ -69,12 +108,34 @@ func (c *Character) DisplayVendeur() {
 				c.MaxInventory += 5
 				fmt.Printf("\n🎒 Capacité d'inventaire augmentée à %d !\n", c.MaxInventory)
 			}
-		case "4":
-			c.buyConsumable(&compCStock, compCPrice, "Composant Rang C")
 		case "5":
-			c.buyConsumable(&compBStock, compBPrice, "Composant Rang B")
+			c.buyConsumable(&compCStock, compCPrice, "Composant Rang C")
 		case "6":
+			c.buyConsumable(&compBStock, compBPrice, "Composant Rang B")
+		case "7":
 			c.buyConsumable(&compAStock, compAPrice, "Composant Rang A")
+		case "8":
+			c.buyConsumable(&mercenaireStock, mercenairePrice, "Plastron de Mercenaire")
+
+		case "9":
+			c.buyConsumable(&arasakaStock, arasakaPrice, "Plastron de soldat Arasaka")
+
+		case "10":
+			// Vérification stricte du nom du personnage
+			pName := strings.ToLower(c.Name)
+			if pName != "david" && pName != "lucy" && pName != "falco" {
+				fmt.Println("\n❌ ACCÈS REFUSÉ : La signature biométrique de cette veste ne correspond pas à votre profil !")
+			} else if !c.CanAddInventory() {
+				fmt.Println("\n❌ Votre inventaire est plein !")
+			} else if davidJacketStock <= 0 {
+				fmt.Println("\n❌ Rupture de stock !")
+			} else if c.Money < davidJacketPrice {
+				fmt.Println("\n❌ Fonds insuffisants !")
+			} else {
+				c.Money -= davidJacketPrice
+				davidJacketStock--
+				c.AddInventory("Veste de David Martinez")
+			}
 		case "0":
 			return
 		default:
@@ -83,7 +144,7 @@ func (c *Character) DisplayVendeur() {
 	}
 }
 
-// Fonction utilitaire pour éviter la répétition du code d'achat
+// Fonction utilitaire pour effectuer l'achat de consommables
 func (c *Character) buyConsumable(stock *int, price int, itemName string) {
 	if !c.CanAddInventory() {
 		fmt.Println("\n❌ Votre inventaire est plein !")

@@ -64,8 +64,7 @@ func main() {
 	}
 
 	// Création du personnage avec inventaire de départ
-	player := perso.InitCharacter(name, class, []string{"Cyberdeck v1", "Stimpack"})
-
+	player := perso.InitCharacter(name, class)
 	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS]")
 
 	// --- BOUCLE DU MENU PRINCIPAL ---
@@ -77,9 +76,10 @@ func main() {
 		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
 		fmt.Println("│  3. Visiter le Marchand                          │")
 		fmt.Println("│  4. Atelier Cyberware (Forgeron)                 │")
-		fmt.Println("│  5. Quitter                                      │")
+		fmt.Println("│  5. Lancer un combat d'entraînement              │")
+		fmt.Println("│  6. Quitter                                      │")
 		fmt.Println("└──────────────────────────────────────────────────┘")
-		fmt.Print("Entrez votre choix (1-5) : ")
+		fmt.Print("Entrez votre choix (1-6) : ")
 
 		choiceInput, _ := reader.ReadString('\n')
 		choice := strings.TrimSpace(choiceInput)
@@ -90,24 +90,24 @@ func main() {
 		case "1":
 			player.DisplayInfo()
 			promptReturn(reader)
-
 		case "2":
 			player.AccessInventory()
-
 		case "3":
 			player.DisplayVendeur()
-
 		case "4":
 			player.DisplayForgeron()
-
 		case "5":
+			player.StartTrainingFight()
+			promptReturn(reader)
+
+		case "6":
 			fmt.Println("┌──────────────────────────────────────────────────┐")
 			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE.          │")
 			fmt.Println("└──────────────────────────────────────────────────┘")
 			return
 
 		default:
-			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 5.")
+			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 6.")
 		}
 	}
 }
