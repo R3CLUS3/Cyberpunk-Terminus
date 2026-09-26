@@ -41,10 +41,11 @@ func main() {
 	nameInput, _ := reader.ReadString('\n')
 	name := strings.TrimSpace(nameInput)
 
+	// Choix de la classe
 	fmt.Println("\nChoisissez votre origine :")
-	fmt.Println("1. Gosse des rues")
-	fmt.Println("2. Corpo")
-	fmt.Println("3. Netrunner")
+	fmt.Println("1. Gosse des rues ")
+	fmt.Println("2. Netrunner      ")
+	fmt.Println("3. Corpo          ")
 	fmt.Print("Votre choix (1-3) : ")
 
 	classInput, _ := reader.ReadString('\n')
@@ -55,15 +56,15 @@ func main() {
 	case "1":
 		class = "Gosse des rues"
 	case "2":
-		class = "Corpo"
-	case "3":
 		class = "Netrunner"
+	case "3":
+		class = "Corpo"
 	default:
 		class = "Gosse des rues"
 	}
 
-	// Création du personnage
-	player := perso.InitCharacter(name, class, 1, 100, 100, []string{"Cyberdeck v1", "Stimpack"})
+	// Création du personnage avec inventaire de départ
+	player := perso.InitCharacter(name, class, []string{"Cyberdeck v1", "Stimpack"})
 
 	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS]")
 

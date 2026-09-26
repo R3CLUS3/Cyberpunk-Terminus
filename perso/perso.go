@@ -13,24 +13,50 @@ type Character struct {
 	CurrentHP int
 	Money     int
 	Inventory []string
-	Skills    []Skill // Nouveau : liste des compétences
+	Skills    []Skill
 }
 
-func InitCharacter(name string, class string, level int, maxHP int, currentHP int, inventory []string) Character {
-	// Compétence de base
-	defaultSkills := []Skill{
-		{Name: "Coup de poing", Damage: 7},
+// InitCharacter initialise les attributs du personnage selon la classe choisie
+func InitCharacter(name string, class string, inventory []string) Character {
+	var maxHP int
+	var startingMoney int
+	var baseSkill Skill
+
+	switch strings.ToLower(class) {
+	case "gosse des rues":
+		maxHP = 120
+		startingMoney = 1000
+		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
+
+	case "netrunner":
+		maxHP = 80
+		startingMoney = 1000
+		baseSkill = Skill{Name: "Hacking", Damage: 12}
+
+	case "corpo":
+		maxHP = 100
+		startingMoney = 1500 // Plus d'argent au départ
+		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
+
+	default: // Sécurité par défaut (Gosse des rues)
+		class = "Gosse des rues"
+		maxHP = 120
+		startingMoney = 1000
+		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
 	}
+
+	// PV actuels au démarrage = 60% des PV max
+	currentHP := (maxHP * 60) / 100
 
 	return Character{
 		Name:      name,
 		Class:     class,
-		Level:     level,
+		Level:     1, // Niveau 1 au départ
 		MaxHP:     maxHP,
 		CurrentHP: currentHP,
-		Money:     1000,
+		Money:     startingMoney,
 		Inventory: inventory,
-		Skills:    defaultSkills,
+		Skills:    []Skill{baseSkill},
 	}
 }
 
@@ -55,7 +81,6 @@ func (c Character) DisplayInfo() {
 	}
 	skillsStr := strings.Join(skillNames, " | ")
 
-	// Pré-formatage de chaque ligne pour aligner la bordure droite
 	nameLine := fmt.Sprintf("[IDENTIFIANT] : %s", c.Name)
 	classLine := fmt.Sprintf("[ORIGINE]     : %s", c.Class)
 	levelLine := fmt.Sprintf("[NIVEAU]      : %d", c.Level)
