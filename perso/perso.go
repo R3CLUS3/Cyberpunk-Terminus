@@ -32,24 +32,24 @@ func InitCharacter(name string, classChoice string) Character {
 	switch classChoice {
 	case "1":
 		className = "Gosse des rues"
-		maxHP = 100
-		startingMoney = 1500
-		baseSkill = Skill{Name: "Coup de poing", Damage: 10}
-	case "2":
-		className = "Nomade"
 		maxHP = 120
 		startingMoney = 1000
-		baseSkill = Skill{Name: "Tir de précision", Damage: 12}
+		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
+	case "2":
+		className = "Netruner"
+		maxHP = 80
+		startingMoney = 1000
+		baseSkill = Skill{Name: "Hacking", Damage: 12}
 	case "3":
 		className = "Corpo"
-		maxHP = 90
-		startingMoney = 1500
-		baseSkill = Skill{Name: "Piratage rapide", Damage: 15}
-	default:
-		className = "Gosse des rues"
 		maxHP = 100
 		startingMoney = 1500
-		baseSkill = Skill{Name: "Coup de poing", Damage: 10}
+		baseSkill = Skill{Name: "Coup de matraque", Damage: 8}
+	default:
+		className = "Gosse des rues"
+		maxHP = 120
+		startingMoney = 1000
+		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
 	}
 
 	return Character{
@@ -77,7 +77,7 @@ func (c *Character) AddXP(amount int) {
 	}
 
 	c.XP += amount
-	fmt.Printf("⭐ +%d XP gagnés ! (%d/%d XP)\n", amount, c.XP, c.MaxXP)
+	fmt.Printf("T'as gagné +%d XP ! (%d/%d XP)\n", amount, c.XP, c.MaxXP)
 
 	for c.XP >= c.MaxXP && c.Level < 50 {
 		c.XP -= c.MaxXP
@@ -86,11 +86,11 @@ func (c *Character) AddXP(amount int) {
 		c.CurrentHP += 5                      // Soigne de +5 HP lors du level up
 		c.MaxXP = int(float64(c.MaxXP) * 1.2) // Augmente le seuil d'XP requis
 
-		fmt.Printf("\n🎉 [LEVEL UP !] Vous passez Niveau %d !\n", c.Level)
-		fmt.Printf("❤️ Vos PV Maximaux augmentent à %d HP (+5 HP) !\n", c.MaxHP)
+		fmt.Printf("\n [LEVEL UP !] Vous passez Niveau %d !\n", c.Level)
+		fmt.Printf(" Vos PV Maximaux augmentent à %d HP (+5 HP) !\n", c.MaxHP)
 
 		if c.Level == 50 {
-			fmt.Println("🏆 NIVEAU MAXIMUM 50 ATTEINT !")
+			fmt.Println(" NIVEAU MAXIMUM 50 ATTEINT !\n T'es une Légende eh!")
 			c.XP = 0
 			break
 		}

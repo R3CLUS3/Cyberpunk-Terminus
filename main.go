@@ -33,11 +33,12 @@ func main() {
 ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
                                                             
 										[ SYSTEM CYBERPUNK TERMINUS // v1.0 ]
+										 														made by Rob1
 `
 	fmt.Print(Yellow + Cyber + Reset)
 	fmt.Println("=== INITIALISATION DU SYSTÈME CYBERPUNK ===")
 
-	fmt.Print("Entrez votre identifiant (Nom) : ")
+	fmt.Print("Entrez votre identifiant : ")
 	nameInput, _ := reader.ReadString('\n')
 	name := strings.TrimSpace(nameInput)
 
@@ -87,7 +88,7 @@ func main() {
 		fmt.Print("Entrez votre choix (1-9) : ")
 
 		choiceInput, _ := reader.ReadString('\n')
-		choice := strings.TrimSpace(choiceInput)
+		choice := strings.ToLower(strings.TrimSpace(choiceInput))
 
 		switch choice {
 		case "h":
@@ -122,12 +123,12 @@ func main() {
 			player.StartLegendDuel()
 
 		case "9":
-			fmt.Println("┌──────────────────────────────────────────────────┐")
+			fmt.Println(Red + "┌──────────────────────────────────────────────────┐")
 			fmt.Println("│          DÉCONNEXION DU SYSTÈME... BYE.          │")
-			fmt.Println("└──────────────────────────────────────────────────┘")
+			fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
 			return
 		default:
-			fmt.Println("⚠️ Choix invalide. Veuillez saisir un numéro entre 1 et 7.")
+			fmt.Println(" Choix invalide. Veuillez saisir un numéro entre 1 et 7.")
 		}
 	}
 }

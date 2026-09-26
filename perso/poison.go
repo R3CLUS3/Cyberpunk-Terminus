@@ -17,7 +17,7 @@ func (c *Character) Poison() {
 			c.CurrentHP = 0
 		}
 
-		fmt.Printf("☣️  [TICK %d/3] Dégâts neurotoxiques subis (-10 HP) | PV actuels : %d/%d HP\n", i, c.CurrentHP, c.MaxHP)
+		fmt.Printf("[TICK %d/3] Dégâts neurotoxiques subis (-10 HP) | PV actuels : %d/%d HP\n", i, c.CurrentHP, c.MaxHP)
 
 		// Vérification si le joueur succombe au poison
 		if c.IsDead() {

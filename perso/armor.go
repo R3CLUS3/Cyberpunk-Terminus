@@ -17,7 +17,7 @@ type Armor struct {
 func (c *Character) EquipArmor(armorName string, bonusHP int) {
 	// Si le personnage porte déjà une armure, on retire son ancien bonus
 	if c.EquippedArmor != "" {
-		fmt.Printf("\n🔄 Vous retirez : %s\n", c.EquippedArmor)
+		fmt.Printf("\n Vous retirez : %s\n", c.EquippedArmor)
 		c.MaxHP -= c.ArmorBonus
 		if c.CurrentHP > c.MaxHP {
 			c.CurrentHP = c.MaxHP
@@ -30,6 +30,6 @@ func (c *Character) EquipArmor(armorName string, bonusHP int) {
 	c.MaxHP += bonusHP
 	c.CurrentHP += bonusHP // Donne directement le bonus en PV actuels aussi
 
-	fmt.Printf("\n🛡️ [ÉQUIPEMENT SÉCURISÉ] %s équipée !\n", armorName)
-	fmt.Printf("❤️ Vos PV maximaux passent à %d HP (+%d HP) !\n", c.MaxHP, bonusHP)
+	fmt.Printf("\n[ÉQUIPEMENT SÉCURISÉ] %s équipée !\n", armorName)
+	fmt.Printf(" Vos PV maximaux passent à %d HP (+%d HP) !\n", c.MaxHP, bonusHP)
 }

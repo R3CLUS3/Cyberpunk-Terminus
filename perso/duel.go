@@ -64,9 +64,9 @@ func (c *Character) StartLegendDuel() {
 		}
 
 		ClearScreen()
-		fmt.Println("⚡ ========================================== ⚡")
+		fmt.Println(Green + " ========================================== ")
 		fmt.Println("       SYS.NET // ARENE DES LÉGENDES DE NC    ")
-		fmt.Println("⚡ ========================================== ⚡")
+		fmt.Println(" ========================================== " + Reset)
 		fmt.Println("Choisissez un adversaire pour un duel en 1v1 :\n")
 
 		for i, legend := range legends {
@@ -87,7 +87,7 @@ func (c *Character) StartLegendDuel() {
 		_, err := fmt.Sscanf(choice, "%d", &selectedIdx)
 
 		if err != nil || selectedIdx < 1 || selectedIdx > len(legends) {
-			fmt.Println("\n⚠️ Choix invalide.")
+			fmt.Println(Red + "\nChoix invalide." + Reset)
 			continue
 		}
 
@@ -95,15 +95,15 @@ func (c *Character) StartLegendDuel() {
 		boss := legends[selectedIdx-1]
 
 		ClearScreen()
-		fmt.Printf("⚔️  [DUEL DÉCLENCHÉ] %s s'avance dans l'arène !\n", boss.Name)
-		fmt.Println("──────────────────────────────────────────────")
+		fmt.Printf(Green+"  [DUEL DÉCLENCHÉ] %s s'avance dans l'arène !\n", boss.Name)
+		fmt.Println("──────────────────────────────────────────────" + Reset)
 
 		// Réutilisation du moteur de combat de raid
 		c.fightRaidEnemy(&boss)
 
 		if boss.IsDead() {
-			fmt.Printf("\n🏆 [EXPLOIT MONUMENTAL] Vous avez vaincu %s !\n", boss.Name)
-			fmt.Printf("💵 Récompense : +%d $ED\n", boss.RewardED)
+			fmt.Printf(Yellow+"\n[EXPLOIT MONUMENTAL] Vous avez vaincu %s !\n", boss.Name)
+			fmt.Printf("Récompense : +%d $ED\n"+Reset, boss.RewardED)
 		}
 
 		fmt.Print("\nAppuyez sur Entrée pour continuer...")

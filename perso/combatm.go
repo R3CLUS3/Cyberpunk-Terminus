@@ -50,9 +50,9 @@ func (c *Character) StartRaidMilitech() {
 		}
 
 		// Affichage de l'entête du Raid
-		fmt.Printf("\n🏢 ========================================== 🏢\n")
+		fmt.Printf(Yellow + "\n ========================================== \n")
 		fmt.Printf("      SYS.NET // RAID MILITECH - NIVEAU %d/3\n", currentLevel+1)
-		fmt.Printf("🏢 ========================================== 🏢\n\n")
+		fmt.Printf(" ========================================== \n\n" + Reset)
 
 		// Rendu de la carte
 		for y := 0; y < 5; y++ {
@@ -64,17 +64,17 @@ func (c *Character) StartRaidMilitech() {
 		}
 
 		// Légende
-		fmt.Println("\n------------------------------------------")
+		fmt.Println(Blue + "\n------------------------------------------")
 		fmt.Println("LÉGENDE : P = Joueur | S = Soldat | B = Boss")
 		fmt.Println("          # = Mur    | E = Escalier | . = Vide")
 		fmt.Println("------------------------------------------")
-		fmt.Print("Déplacement (Z = Haut, Q = Gauche, S = Bas, D = Droite, 0 = Fuir) : ")
+		fmt.Print("Déplacement (Z = Haut, Q = Gauche, S = Bas, D = Droite, 0 = Fuir) : " + Reset)
 
 		input, _ := reader.ReadString('\n')
 		dir := strings.ToLower(strings.TrimSpace(input))
 
 		if dir == "0" {
-			fmt.Println("\n🚪 Abandon du raid Militech...")
+			fmt.Println(Red + "\n Abandon du raid Militech... Sale lâche!" + Reset)
 			return
 		}
 
@@ -90,13 +90,13 @@ func (c *Character) StartRaidMilitech() {
 		case "d":
 			newX++
 		default:
-			fmt.Println("\n⚠️ Touche invalide (Utilisez Z, Q, S, D).")
+			fmt.Println(Red + "\nTouche invalide (Utilisez Z, Q, S, D)." + Reset)
 			continue
 		}
 
 		// Vérification des limites de la carte
 		if newX < 0 || newX >= 5 || newY < 0 || newY >= 5 {
-			fmt.Println("\n⛔ Déplacement impossible : Hors limites.")
+			fmt.Println(Red + "\nTu peux pas traverser les murs chooms!" + Reset)
 			continue
 		}
 
@@ -104,7 +104,7 @@ func (c *Character) StartRaidMilitech() {
 
 		// Gestion des collisions et événements
 		if targetTile == '#' {
-			fmt.Println("\n🚧 Obstacle ! Un mur bloque le passage.")
+			fmt.Println(Red + "\n Tu peux pas traverser les murs chooms!" + Reset)
 			continue
 		}
 
@@ -116,7 +116,7 @@ func (c *Character) StartRaidMilitech() {
 
 		if targetTile == 'S' {
 			maps[currentLevel][playerY][playerX] = 'P'
-			fmt.Println("\n🚨 [ALERTE] Un Soldat Militech vous repère !")
+			fmt.Println("\n[ALERTE] Un Soldat Militech vous repère !")
 			enemy := Monster{
 				Name:      fmt.Sprintf("Soldat Militech (Niveau %d)", currentLevel+1),
 				MaxHP:     50 + (currentLevel * 25),
@@ -130,9 +130,9 @@ func (c *Character) StartRaidMilitech() {
 		} else if targetTile == 'B' {
 			maps[currentLevel][playerY][playerX] = 'P'
 			boss := Monster{
-				Name:      "Commandant Exécutif Militech",
-				MaxHP:     220,
-				CurrentHP: 220,
+				Name:      "Machine de sécurité Militech",
+				MaxHP:     250,
+				CurrentHP: 250,
 				Attack:    25,
 				RewardED:  600,
 				RewardXP:  400,
@@ -140,9 +140,13 @@ func (c *Character) StartRaidMilitech() {
 			c.fightRaidEnemy(&boss)
 
 			if boss.IsDead() {
-				fmt.Println("\n🏆 [VICTOIRE] Complexe Militech neutralisé !")
+				fmt.Println(Blue + "\n [VICTOIRE] Le RAID contre Militech est un succès !" + Reset)
 
-				// Ajout du prototype Cybersquelette
+				// Loot des 2 Composants Rang S pour la Forge
+				c.Inventory = append(c.Inventory, "Composant [Rang S]", "Composant [Rang S]")
+				fmt.Println(Yellow + " [LOOT DE COMPOSANTS] +2x Composant [Rang S] ajoutés à l'inventaire !" + Reset)
+
+				// Loot du Cybersquelette Militech
 				hasSkill := false
 				for _, s := range c.Skills {
 					if s.Name == "Cybersquelette Militech" {
@@ -155,10 +159,10 @@ func (c *Character) StartRaidMilitech() {
 					c.Skills = append(c.Skills, Skill{
 						Name:    "Cybersquelette Militech",
 						Damage:  120,
-						Uses:    10,
+						Uses:    8,
 						IsFatal: true,
 					})
-					fmt.Println("⚠️ [LOOT EXPÉRIMENTAL] Vous récupérez le Proto-Cybersquelette Militech (120 dmg / 10 utilisations max) !")
+					fmt.Println(Yellow + " [LOOT EXPÉRIMENTAL] Proto-Cybersquelette récupéré (120 dmg / 8 utilisations) !" + Reset)
 				}
 				return
 			}
@@ -168,7 +172,7 @@ func (c *Character) StartRaidMilitech() {
 			currentLevel++
 			playerX, playerY = 0, 0
 			maps[currentLevel][playerY][playerX] = 'P'
-			fmt.Printf("\n🪜 Vous prenez l'escalier et montez au Niveau %d !\n", currentLevel+1)
+			fmt.Printf("\n Vous prenez l'escalier et montez au Niveau %d !\n", currentLevel+1)
 
 		} else {
 			maps[currentLevel][playerY][playerX] = 'P'
@@ -206,7 +210,7 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 			if skillIndex >= 1 && skillIndex <= len(c.Skills) {
 				selectedSkill := c.Skills[skillIndex-1]
 				enemy.CurrentHP -= selectedSkill.Damage
-				fmt.Printf("\n💥 Vous attaquez avec [%s] (-%d HP) !\n", selectedSkill.Name, selectedSkill.Damage)
+				fmt.Printf(Red+"\n Vous attaquez avec [%s] (-%d HP) !\n"+Reset, selectedSkill.Name, selectedSkill.Damage)
 				turnExecuted = true
 			}
 		} else if choice == "2" {
@@ -218,13 +222,13 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 				}
 			}
 			if !turnExecuted {
-				fmt.Println("\n⚠️ Pas de Stimpack disponible !")
+				fmt.Println(Red + "\n Pas de Stimpack disponible !" + Reset)
 			}
 		}
 
 		if turnExecuted && !enemy.IsDead() {
 			c.CurrentHP -= enemy.Attack
-			fmt.Printf("🥊 %s riposte et vous inflige %d dégâts !\n", enemy.Name, enemy.Attack)
+			fmt.Printf(Red+" %s riposte et vous inflige %d dégâts !\n"+Reset, enemy.Name, enemy.Attack)
 
 			if c.CurrentHP <= 0 {
 				c.Death()
@@ -234,7 +238,7 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 	}
 
 	if enemy.IsDead() {
-		fmt.Printf("\n🎉 Cible %s éliminée !\n", enemy.Name)
+		fmt.Printf(Yellow+"\n Cible %s éliminée !\n"+Reset, enemy.Name)
 		c.Money += enemy.RewardED
 		c.AddXP(enemy.RewardXP)
 	}

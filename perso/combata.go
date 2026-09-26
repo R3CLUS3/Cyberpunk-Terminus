@@ -41,9 +41,9 @@ func (c *Character) StartRaidArasaka() {
 		}
 
 		ClearScreen()
-		fmt.Printf("🔴 ========================================== 🔴\n")
+		fmt.Printf(Red + " ========================================== \n")
 		fmt.Printf("      SYS.NET // RAID ARASAKA TOWER - NIVEAU %d/2\n", currentLevel+1)
-		fmt.Printf("🔴 ========================================== 🔴\n\n")
+		fmt.Printf(" ========================================== \n\n" + Reset)
 
 		for y := 0; y < 6; y++ {
 			fmt.Print("  ")
@@ -53,11 +53,11 @@ func (c *Character) StartRaidArasaka() {
 			fmt.Println()
 		}
 
-		fmt.Println("\n------------------------------------------")
+		fmt.Println(Blue + "\n------------------------------------------")
 		fmt.Println("LÉGENDE : P = Joueur | S = Agent Ninja Arasaka")
 		fmt.Println("          B = Adam Smasher | # = Mur | E = Escalier")
 		fmt.Println("------------------------------------------")
-		fmt.Print("Déplacement (Z, Q, S, D | 0 = Fuir) : ")
+		fmt.Print("Déplacement (Z, Q, S, D | 0 = Fuir) : " + Reset)
 
 		input, _ := reader.ReadString('\n')
 		dir := strings.ToLower(strings.TrimSpace(input))
@@ -106,23 +106,27 @@ func (c *Character) StartRaidArasaka() {
 
 		} else if targetTile == 'B' {
 			maps[currentLevel][playerY][playerX] = 'P'
-			fmt.Println("\n🤖 [ALERTE ROUGE] ADAM SMASHER EST EN FACE DE VOUS !")
+			fmt.Println("\n[ALERTE ROUGE] ADAM SMASHER EST EN FACE DE VOUS ! (venge Rebecca.)")
 			boss := Monster{
 				Name:      "Adam Smasher",
-				MaxHP:     999,
-				CurrentHP: 999,
+				MaxHP:     450,
+				CurrentHP: 450,
 				Attack:    40,
-				RewardED:  5000,
-				RewardXP:  5000,
+				RewardED:  1500,
+				RewardXP:  800,
 			}
 			c.fightRaidEnemy(&boss)
 
 			if boss.IsDead() {
-				fmt.Println("\n🏆 [LÉGENDE DE NIGHT CITY] Vous avez vaincu Adam Smasher !")
+				fmt.Println(Blue + "\n[LÉGENDE DE NIGHT CITY] T'as butté Smasher !" + Reset)
+
+				// Loot du Composant Ultime Rang S+
+				c.Inventory = append(c.Inventory, "Composant [Rang S+]")
+				fmt.Println(Yellow + "[LOOT LEGENDAIRE] +1x Composant [Rang S+] ajouté à l'inventaire !" + Reset)
 				return
 			}
-
-		} else if targetTile == 'E' {
+		}
+		if targetTile == 'E' {
 			currentLevel++
 			playerX, playerY = 0, 0
 			maps[currentLevel][playerY][playerX] = 'P'

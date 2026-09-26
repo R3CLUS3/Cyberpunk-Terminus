@@ -37,7 +37,7 @@ var (
 	arasakaPrice = 999
 
 	davidJacketStock = 1
-	davidJacketPrice = 2100
+	davidJacketPrice = 0
 )
 
 func (c *Character) DisplayVendeur() {
@@ -85,13 +85,13 @@ func (c *Character) DisplayVendeur() {
 			}
 
 			if hasPuce {
-				fmt.Println("\n❌ Puce déjà installée !")
+				fmt.Println(Red + "\n Puce déjà installée !" + Reset)
 			} else if !c.CanAddInventory() {
-				fmt.Println("\n❌ Votre inventaire est plein !")
+				fmt.Println(Red + "\n Votre inventaire est plein !" + Reset)
 			} else if puceStock <= 0 {
-				fmt.Println("\n❌ Rupture de stock !")
+				fmt.Println(Red + "\n Rupture de stock !" + Reset)
 			} else if c.Money < pucePrice {
-				fmt.Println("\n❌ Fonds insuffisants !")
+				fmt.Println(Red + "\n Fonds insuffisants !" + Reset)
 			} else {
 				c.Money -= pucePrice
 				puceStock--
@@ -99,14 +99,14 @@ func (c *Character) DisplayVendeur() {
 			}
 		case "4":
 			if sacStock <= 0 {
-				fmt.Println("\n❌ Limite d'achat de sacs atteinte !")
+				fmt.Println(Red + "\n Limite d'achat de sacs atteinte !" + Reset)
 			} else if c.Money < sacPrice {
-				fmt.Println("\n❌ Fonds insuffisants !")
+				fmt.Println(Red + "\n Fonds insuffisants !" + Reset)
 			} else {
 				c.Money -= sacPrice
 				sacStock--
 				c.MaxInventory += 5
-				fmt.Printf("\n🎒 Capacité d'inventaire augmentée à %d !\n", c.MaxInventory)
+				fmt.Printf("\nCapacité d'inventaire augmentée à %d !\n", c.MaxInventory)
 			}
 		case "5":
 			c.buyConsumable(&compCStock, compCPrice, "Composant Rang C")
@@ -124,22 +124,22 @@ func (c *Character) DisplayVendeur() {
 			// Vérification stricte du nom du personnage
 			pName := strings.ToLower(c.Name)
 			if pName != "david" && pName != "lucy" && pName != "falco" {
-				fmt.Println("\n❌ ACCÈS REFUSÉ : La signature biométrique de cette veste ne correspond pas à votre profil !")
+				fmt.Println(Red + "\n ACCÈS REFUSÉ : La signature biométrique de cette veste ne correspond pas à votre profil !" + Reset)
 			} else if !c.CanAddInventory() {
-				fmt.Println("\n❌ Votre inventaire est plein !")
+				fmt.Println(Red + "\n Votre inventaire est plein !" + Reset)
 			} else if davidJacketStock <= 0 {
-				fmt.Println("\n❌ Rupture de stock !")
+				fmt.Println(Red + "\n Rupture de stock !" + Reset)
 			} else if c.Money < davidJacketPrice {
-				fmt.Println("\n❌ Fonds insuffisants !")
+				fmt.Println(Red + "\n Fonds insuffisants !" + Reset)
 			} else {
 				c.Money -= davidJacketPrice
 				davidJacketStock--
-				c.AddInventory("Veste de David Martinez")
+				c.AddInventory(Yellow + "Veste de David Martinez" + Reset)
 			}
 		case "0":
 			return
 		default:
-			fmt.Println("\n⚠️ Choix invalide.")
+			fmt.Println(Red + "\n Choix invalide." + Reset)
 		}
 	}
 }
@@ -147,11 +147,11 @@ func (c *Character) DisplayVendeur() {
 // Fonction utilitaire pour effectuer l'achat de consommables
 func (c *Character) buyConsumable(stock *int, price int, itemName string) {
 	if !c.CanAddInventory() {
-		fmt.Println("\n❌ Votre inventaire est plein !")
+		fmt.Println(Red + "\n Votre inventaire est plein !" + Reset)
 	} else if *stock <= 0 {
-		fmt.Println("\n❌ Rupture de stock !")
+		fmt.Println(Red + "\n Rupture de stock !" + Reset)
 	} else if c.Money < price {
-		fmt.Println("\n❌ Fonds insuffisants !")
+		fmt.Println(Red + "\n Fonds insuffisants !" + Reset)
 	} else {
 		c.Money -= price
 		*stock--

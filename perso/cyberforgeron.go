@@ -41,7 +41,7 @@ func (c *Character) DisplayForgeron() {
 		var selected int
 		_, err := fmt.Sscanf(choice, "%d", &selected)
 		if err != nil || selected < 1 || selected > len(recipes) {
-			fmt.Println("\n⚠️ Choix invalide.")
+			fmt.Println(Red + "\n Choix invalide." + Reset)
 			continue
 		}
 
@@ -57,12 +57,12 @@ func (c *Character) DisplayForgeron() {
 		}
 
 		if alreadyOwned {
-			fmt.Printf("\n❌ Vous possédez déjà l'arme %s !\n", recipe.Name)
+			fmt.Printf(Red+"\n Vous possédez déjà l'arme %s !\n"+Reset, recipe.Name)
 			continue
 		}
 
 		if c.Money < recipe.Price {
-			fmt.Printf("\n❌ Fonds insuffisants (%d $ED requis) !\n", recipe.Price)
+			fmt.Printf(Red+"\n Fonds insuffisants (%d $ED requis) !\n"+Reset, recipe.Price)
 			continue
 		}
 
@@ -94,7 +94,7 @@ func (c *Character) DisplayForgeron() {
 		}
 
 		if missingComp != "" {
-			fmt.Printf("\n❌ Composant manquant : Vous devez posséder [%s] !\n", missingComp)
+			fmt.Printf(Red+"\n Composant manquant : Vous devez posséder [%s] !\n"+Reset, missingComp)
 			continue
 		}
 
@@ -110,7 +110,7 @@ func (c *Character) DisplayForgeron() {
 		// Ajout de l'arme aux compétences
 		c.Skills = append(c.Skills, recipe.SkillResult)
 
-		fmt.Printf("\n🔨 [FABRICATION RÉUSSIE] %s assemblé !\n", recipe.Name)
-		fmt.Printf("⚔️ Nouvelle compétence : %s (%d dmg).\n\n", recipe.SkillResult.Name, recipe.SkillResult.Damage)
+		fmt.Printf(Blue+"\n [FABRICATION RÉUSSIE] %s assemblé !\n"+Reset, recipe.Name)
+		fmt.Printf(Yellow+" Nouvelle compétence : %s (%d dmg).\n\n"+Reset, recipe.SkillResult.Name, recipe.SkillResult.Damage)
 	}
 }

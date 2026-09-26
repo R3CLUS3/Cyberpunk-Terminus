@@ -12,9 +12,9 @@ func (c *Character) StartTrainingFight() {
 	reader := bufio.NewReader(os.Stdin)
 	wave := 1
 
-	fmt.Println("\n⚔️  ==========================================  ⚔️")
+	fmt.Println(Yellow + "\n  ==========================================  ")
 	fmt.Println("       SYS.NET // ARENE D'ENTRAÎNEMENT INFINIE")
-	fmt.Println("⚔️  ==========================================  ⚔️")
+	fmt.Println("  ==========================================  " + Reset)
 
 	for {
 		enemy := GenerateBot(wave)
@@ -23,7 +23,7 @@ func (c *Character) StartTrainingFight() {
 		// Boucle de combat contre un ennemi
 		for !c.IsDead() && !enemy.IsDead() {
 			fmt.Printf("--- [ VAGUE %d - TOUR ] ---------------------------\n", wave)
-			fmt.Printf("👤 %s : %d/%d HP  │  🤖 %s : %d/%d HP\n", c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
+			fmt.Printf("👤 %s : %d/%d HP  │   %s : %d/%d HP\n", c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
 			fmt.Println("--------------------------------------------------")
 			fmt.Println("1. Attaquer (Compétences)")
 			fmt.Println("2. Inventaire (Utiliser un objet)")
@@ -57,12 +57,12 @@ func (c *Character) StartTrainingFight() {
 					fmt.Printf("\n💥 [%s] inflige %d dégâts à %s !\n", selectedSkill.Name, selectedSkill.Damage, enemy.Name)
 					turnExecuted = true
 				} else {
-					fmt.Println("\n⚠️ Choix invalide.")
+					fmt.Println(Red + "\nChoix invalide." + Reset)
 				}
 
 			case "2":
 				if len(c.Inventory) == 0 {
-					fmt.Println("\n⚠️ Inventaire vide.")
+					fmt.Println(Red + "\nInventaire vide." + Reset)
 				} else {
 					fmt.Println("\n--- Inventaire ---")
 					for i, item := range c.Inventory {
@@ -82,13 +82,13 @@ func (c *Character) StartTrainingFight() {
 							c.Heal(itemIndex - 1)
 							turnExecuted = true
 						} else {
-							fmt.Printf("\n⚠️ Impossible d'utiliser %s en combat.\n", item)
+							fmt.Printf(Red+"\nImpossible d'utiliser %s en combat.\n"+Reset, item)
 						}
 					}
 				}
 
 			default:
-				fmt.Println("\n⚠️ Action invalide.")
+				fmt.Println(Red + "\nAction invalide." + Reset)
 			}
 
 			// Riposte de l'ennemi
@@ -98,7 +98,7 @@ func (c *Character) StartTrainingFight() {
 				if c.CurrentHP < 0 {
 					c.CurrentHP = 0
 				}
-				fmt.Printf("🥊 %s attaque et inflige %d dégâts !\n\n", enemy.Name, enemy.Attack)
+				fmt.Printf(" %s attaque et inflige %d dégâts !\n\n", enemy.Name, enemy.Attack)
 
 				if c.CurrentHP <= 0 {
 					c.Death() // Déclenche la gestion de mort

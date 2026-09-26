@@ -11,7 +11,7 @@ func (c *Character) Death() {
 	ClearScreen()
 
 	fmt.Println(Red + "┌──────────────────────────────────────────────────┐")
-	fmt.Println("│ ⚠️   ALERTE CRITIQUE : SIGNAL VITAL PERDU   ⚠️ │")
+	fmt.Println("│    ALERTE CRITIQUE : SIGNAL VITAL PERDU          │")
 	fmt.Println("├──────────────────────────────────────────────────┤")
 	fmt.Println("│  Sujet neutralisé... Réinitialisation du système. │")
 	fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
@@ -23,6 +23,6 @@ func (c *Character) Death() {
 	c.CurrentHP = c.MaxHP / 2
 
 	ClearScreen()
-	fmt.Printf("⚡ [PROTOCOL REBOOT] Réinitialisation réussie (%d/%d HP).\n\n", c.CurrentHP, c.MaxHP)
+	fmt.Printf(Blue+" [PROTOCOL REBOOT] Réinitialisation réussie (%d/%d HP).\n\n"+Reset, c.CurrentHP, c.MaxHP)
 	c.DisplayInfo()
 }

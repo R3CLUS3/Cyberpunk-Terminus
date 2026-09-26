@@ -18,7 +18,7 @@ type Monster struct {
 func GenerateBot(wave int) Monster {
 	names := []string{
 		"Bot de Securité Militech",
-		"Drone de Démolition Arasaka",
+		"Drone d'Arasaka",
 		"Cyber-Trooper Kang Tao",
 		"Android de Combat Trauma Team",
 		"Proto-Mecha NetWatch",

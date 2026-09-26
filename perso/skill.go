@@ -17,7 +17,7 @@ func (c *Character) PuceDeCombat() {
 	// Vérification dans les implants déjà équipés
 	for _, imp := range c.Implants {
 		if strings.Contains(imp, "Puce de combat") {
-			fmt.Println("\n⚠️ La Puce de combat est déjà installée dans votre système !")
+			fmt.Println(Red + "\n La Puce de combat est déjà installée dans votre système !" + Reset)
 			return
 		}
 	}
@@ -30,8 +30,8 @@ func (c *Character) PuceDeCombat() {
 	// Ajout de l'implant dans la liste des implants équipés
 	c.Implants = append(c.Implants, "Puce de combat (+5 dmg)")
 
-	fmt.Println("\n[IMPLANT INSTALLÉ] Puce de combat activée !")
-	fmt.Printf("Votre compétence de base passe à %d points de dégâts !\n\n", c.Skills[0].Damage)
+	fmt.Println(Green + "\n[IMPLANT INSTALLÉ] Puce de combat activée !" + Reset)
+	fmt.Printf(Blue+"Votre compétence de base passe à %d points de dégâts !\n\n"+Reset, c.Skills[0].Damage)
 
 	c.DisplayInfo()
 }
