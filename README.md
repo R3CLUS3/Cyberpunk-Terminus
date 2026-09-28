@@ -35,7 +35,7 @@ Pour exécuter et jouer au jeu, vous devez disposer de **Go (Golang)** installé
 
 1. **Cloner le dépôt GitHub**
    ```bash
-   git clone [https://github.com/R3CLUS3/Cyberpunk-Terminus.git](https://github.com/R3CLUS3/Cyberpunk-Terminus.git)
+   git clone https://github.com/R3CLUS3/Cyberpunk-Terminus.git
    cd Cyberpunk_Terminus
    go run main.go
    ou
