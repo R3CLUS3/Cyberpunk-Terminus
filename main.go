@@ -32,9 +32,10 @@ func main() {
 ▓          █ ▓          █ ▓           ▄▄▀   ▓          █ ▓    █  █    █ ▓    █        ▓          █ ▓   █  █   █ ▓   █  ▓   █
 ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
                                                             
-					[ SYSTEM CYBERPUNK TERMINUS // v1.0.1 ]
+					[ SYSTEM CYBERPUNK TERMINUS // v1.0.1 ] 
 										 				made by Rob1
 `
+	//v1.0.1 : maj majeur.maj mineur.fix bug
 	fmt.Print(Yellow + Cyber + Reset)
 	fmt.Println("=== INITIALISATION DU SYSTÈME CYBERPUNK ===")
 

@@ -101,7 +101,7 @@ func (c *Character) StartRaidMilitech() {
 
 		// Limites et Murs
 		if newX < 0 || newX >= 5 || newY < 0 || newY >= 5 || maps[currentLevel][newY][newX] == '#' {
-			statusMessage = Red + "Tu peux pas traverser les murs chooms !" + Reset
+			statusMessage = "Tu peux pas traverser les murs chooms !"
 			continue
 		}
 
@@ -124,7 +124,7 @@ func (c *Character) StartRaidMilitech() {
 				RewardXP:  40 + (currentLevel * 20),
 			}
 			c.fightRaidEnemy(&enemy)
-			statusMessage = Green + fmt.Sprintf(" %s éliminé !", enemy.Name) + Reset
+			statusMessage = fmt.Sprintf(" %s éliminé !", enemy.Name)
 
 		} else if targetTile == 'B' {
 			maps[currentLevel][playerY][playerX] = 'P'

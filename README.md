@@ -19,6 +19,7 @@
 - **Atelier Cyberware & Marchand** : Achat d'équipements, d'implants et d'armures uniques (comme la *Veste de David Martinez* avec vérification biométrique).
 - **Système de mort & Cyberpsychose** : Équipements expérimentaux à haut risque (*Cybersquelette Militech*) et réapparition sécurisée.
 - **Interface Terminal Propre** : Rafraîchissement dynamique de l'écran avec codes de couleurs ANSI.
+- **Appuie sur F11** : pour mettre en plein écran pour une meilleure immersion
 
 ---
 
