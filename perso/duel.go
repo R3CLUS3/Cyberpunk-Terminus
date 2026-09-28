@@ -11,7 +11,7 @@ import (
 func GetLegendsCatalogue() []Monster {
 	return []Monster{
 		{
-			Name:      "Rebecca",
+			Name:      Green + "Rebecca" + Reset,
 			MaxHP:     250,
 			CurrentHP: 250,
 			Attack:    28,
@@ -19,7 +19,7 @@ func GetLegendsCatalogue() []Monster {
 			RewardXP:  500,
 		},
 		{
-			Name:      "Lucy",
+			Name:      Blue + "Lucy" + Reset,
 			MaxHP:     220,
 			CurrentHP: 220,
 			Attack:    35,
@@ -27,7 +27,7 @@ func GetLegendsCatalogue() []Monster {
 			RewardXP:  300,
 		},
 		{
-			Name:      "David Martinez",
+			Name:      Yellow + "David Martinez" + Reset,
 			MaxHP:     320,
 			CurrentHP: 320,
 			Attack:    45,
@@ -35,7 +35,7 @@ func GetLegendsCatalogue() []Monster {
 			RewardXP:  500,
 		},
 		{
-			Name:      "V (Mercenaire de Légende)",
+			Name:      "V",
 			MaxHP:     420,
 			CurrentHP: 420,
 			Attack:    55,
@@ -43,7 +43,7 @@ func GetLegendsCatalogue() []Monster {
 			RewardXP:  750,
 		},
 		{
-			Name:      "Adam Smasher",
+			Name:      Red + "Adam Smasher" + Reset,
 			MaxHP:     999,
 			CurrentHP: 999,
 			Attack:    65,
@@ -70,7 +70,7 @@ func (c *Character) StartLegendDuel() {
 		fmt.Println("Choisissez un adversaire pour un duel en 1v1 :\n")
 
 		for i, legend := range legends {
-			fmt.Printf("  %d. %-26s (PV: %d | ATK: %d)\n", i+1, legend.Name)
+			fmt.Printf("  %d. %-26s \n", i+1, legend.Name)
 		}
 		fmt.Println("  0. Retour au menu principal")
 		fmt.Println("----------------------------------------------")

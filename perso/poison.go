@@ -25,5 +25,5 @@ func (c *Character) Poison() {
 		}
 	}
 
-	fmt.Println(" [SYSTÈME] Neurotoxine dissipée.\n")
+	fmt.Println(" [SYSTÈME] Neurotoxine dissipée.")
 }

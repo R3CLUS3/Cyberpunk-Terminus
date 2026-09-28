@@ -8,7 +8,7 @@ import (
 // DisplayHelp affiche un guide complet du jeu et des mécaniques
 func DisplayHelp(reader *bufio.Reader) {
 	ClearScreen()
-	fmt.Println("┌──────────────────────────────────────────────────┐")
+	fmt.Println(Green + "┌──────────────────────────────────────────────────┐")
 	fmt.Println("│           SYS.NET // GUIDE D'UTILISATION         │")
 	fmt.Println("├──────────────────────────────────────────────────┤")
 	fmt.Println("│  1. FICHE SUJET                                  │")
@@ -36,7 +36,7 @@ func DisplayHelp(reader *bufio.Reader) {
 	fmt.Println("│  6. DUEL DES LÉGENDES                            │")
 	fmt.Println("│     Affrontez directement au choix : Rebecca,    │")
 	fmt.Println("│     Lucy, David, V ou Adam Smasher.              │")
-	fmt.Println("└──────────────────────────────────────────────────┘")
+	fmt.Println("└──────────────────────────────────────────────────┘" + Reset)
 	fmt.Print("\nAppuyez sur Entrée pour revenir au menu principal...")
 	reader.ReadString('\n')
 }
