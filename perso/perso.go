@@ -48,24 +48,28 @@ func InitCharacter(name string, classChoice string) Character {
 	var startingMoney int
 	var baseSkill Skill
 
-	switch classChoice {
-	case "1":
-		className = "Gosse des rues"
+	// Accepte aussi bien les chiffres ("1", "2", "3") que les noms complets ("Netrunner", "Corpo", etc.)
+	switch strings.ToLower(classChoice) {
+	case "1", "gosse des rues":
+		className = Red + "Gosse des rues" + Reset
 		maxHP = 120
 		startingMoney = 1000
 		baseSkill = Skill{Name: "Coup de poing", Damage: 7}
-	case "2":
-		className = "Netruner"
+
+	case "2", "netrunner", "netruner":
+		className = Yellow + "Netrunner" + Reset
 		maxHP = 80
 		startingMoney = 1000
 		baseSkill = Skill{Name: "Hacking", Damage: 12}
-	case "3":
-		className = "Corpo"
+
+	case "3", "corpo":
+		className = Blue + "Corpo" + Reset
 		maxHP = 100
 		startingMoney = 1500
 		baseSkill = Skill{Name: "Coup de matraque", Damage: 8}
+
 	default:
-		className = "Gosse des rues"
+		className = Red + "Gosse des rues" + Reset
 		maxHP = 120
 		startingMoney = 1000
 		baseSkill = Skill{Name: "Coup de poing", Damage: 7}

@@ -32,8 +32,8 @@ func main() {
 ▓          █ ▓          █ ▓           ▄▄▀   ▓          █ ▓    █  █    █ ▓    █        ▓          █ ▓   █  █   █ ▓   █  ▓   █
 ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
                                                             
-										[ SYSTEM CYBERPUNK TERMINUS // v1.0 ]
-										 														made by Rob1
+					[ SYSTEM CYBERPUNK TERMINUS // v1.0 ]
+										 				made by Rob1
 `
 	fmt.Print(Yellow + Cyber + Reset)
 	fmt.Println("=== INITIALISATION DU SYSTÈME CYBERPUNK ===")
@@ -42,31 +42,36 @@ func main() {
 	nameInput, _ := reader.ReadString('\n')
 	name := strings.TrimSpace(nameInput)
 
-	// Choix de la classe
-	fmt.Println("\nChoisissez votre origine :")
-	fmt.Println("1. Gosse des rues ")
-	fmt.Println("2. Netrunner      ")
-	fmt.Println("3. Corpo          ")
-	fmt.Print("Votre choix (1-3) : ")
-
-	classInput, _ := reader.ReadString('\n')
-	classChoice := strings.TrimSpace(classInput)
-
+	// Choix de la classe avec boucle de validation
 	var class string
-	switch classChoice {
-	case "1":
-		class = "Gosse des rues"
-	case "2":
-		class = "Netrunner"
-	case "3":
-		class = "Corpo"
-	default:
-		class = "Gosse des rues"
+	for {
+		fmt.Println("\nChoisissez votre origine :")
+		fmt.Println("1. Gosse des rues")
+		fmt.Println("2. Netrunner")
+		fmt.Println("3. Corpo")
+		fmt.Print("Votre choix (1-3) : ")
+
+		classInput, _ := reader.ReadString('\n')
+		classChoice := strings.TrimSpace(classInput)
+
+		if classChoice == "1" {
+			class = "Gosse des rues"
+			break
+		} else if classChoice == "2" {
+			class = "Netrunner"
+			break
+		} else if classChoice == "3" {
+			class = "Corpo"
+			break
+		}
+
+		fmt.Println(Red + "⚠️ Choix invalide ! Veuillez saisir 1, 2 ou 3." + Reset)
 	}
 
-	// Création du personnage avec inventaire de départ
+	// Création du personnage avec la classe choisie
 	player := perso.InitCharacter(name, class)
-	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS]")
+	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS :", class, "]")
+	promptReturn(reader)
 
 	// --- BOUCLE DU MENU PRINCIPAL ---
 	for {
