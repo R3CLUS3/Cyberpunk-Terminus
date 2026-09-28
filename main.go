@@ -32,7 +32,7 @@ func main() {
 ▓          █ ▓          █ ▓           ▄▄▀   ▓          █ ▓    █  █    █ ▓    █        ▓          █ ▓   █  █   █ ▓   █  ▓   █
 ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
                                                             
-					[ SYSTEM CYBERPUNK TERMINUS // v1.0 ]
+					[ SYSTEM CYBERPUNK TERMINUS // v1.0.1 ]
 										 				made by Rob1
 `
 	fmt.Print(Yellow + Cyber + Reset)
