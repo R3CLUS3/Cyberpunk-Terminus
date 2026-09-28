@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	stimpackStock = 10
+	stimpackStock = 17
 	stimpackPrice = 199
 
 	poisonStock = 6
@@ -128,7 +128,7 @@ func (c *Character) DisplayVendeur() {
 			} else if !c.CanAddInventory() {
 				fmt.Println(Red + "\n Votre inventaire est plein !" + Reset)
 			} else if davidJacketStock <= 0 {
-				fmt.Println(Red + "\n Rupture de stock !" + Reset)
+				fmt.Println(Red + "\n Cette veste est unique   !" + Reset)
 			} else if c.Money < davidJacketPrice {
 				fmt.Println(Red + "\n Fonds insuffisants !" + Reset)
 			} else {

@@ -65,12 +65,12 @@ func main() {
 			break
 		}
 
-		fmt.Println(Red + "⚠️ Choix invalide ! Veuillez saisir 1, 2 ou 3." + Reset)
+		fmt.Println(Red + "Choix invalide ! Veuillez saisir 1, 2 ou 3." + Reset)
 	}
 
 	// Création du personnage avec la classe choisie
 	player := perso.InitCharacter(name, class)
-	fmt.Println("\n[PROFIL CRÉÉ AVEC SUCCÈS :", class, "]")
+	fmt.Println(Green+"\n[PROFIL CRÉÉ AVEC SUCCÈS :", class, "]"+Reset)
 	promptReturn(reader)
 
 	// --- BOUCLE DU MENU PRINCIPAL ---

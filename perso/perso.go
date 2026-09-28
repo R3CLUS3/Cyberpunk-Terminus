@@ -109,11 +109,11 @@ func (c *Character) AddXP(amount int) {
 		c.CurrentHP += 5                      // Soigne de +5 HP lors du level up
 		c.MaxXP = int(float64(c.MaxXP) * 1.2) // Augmente le seuil d'XP requis
 
-		fmt.Printf("\n [LEVEL UP !] Vous passez Niveau %d !\n", c.Level)
+		fmt.Printf(Blue+"\n [LEVEL UP !] Vous passez Niveau %d !\n"+Reset, c.Level)
 		fmt.Printf(" Vos PV Maximaux augmentent à %d HP (+5 HP) !\n", c.MaxHP)
 
 		if c.Level == 50 {
-			fmt.Println(" NIVEAU MAXIMUM 50 ATTEINT !\n T'es une Légende eh!")
+			fmt.Println(Blue + " NIVEAU MAXIMUM 50 ATTEINT !\n T'es une Légende eh!" + Reset)
 			c.XP = 0
 			break
 		}
