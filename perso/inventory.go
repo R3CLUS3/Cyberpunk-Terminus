@@ -38,31 +38,51 @@ func (c *Character) AccessInventory() {
 		_, err := fmt.Sscanf(choice, "%d", &itemIdx)
 
 		if err != nil || itemIdx < 1 || itemIdx > len(c.Inventory) {
-			fmt.Println("\n⚠️ Choix invalide.")
+			fmt.Println(Red + "\n Choix invalide." + Reset)
 			fmt.Print("\nAppuyez sur Entrée pour continuer...")
 			reader.ReadString('\n')
 			continue
 		}
 
-		idx := itemIdx - 1
-		selectedItem := c.Inventory[idx]
+		selectedItem := c.Inventory[itemIdx-1]
+		itemLower := strings.ToLower(selectedItem)
 
 		switch {
-		case strings.EqualFold(selectedItem, "Stimpack"):
-			c.Heal(idx)
+		// --- SOINS & CONSUMMABLES ---
+		case strings.Contains(itemLower, "stimpack"):
+			c.Heal(itemIdx - 1)
 
-		case strings.EqualFold(selectedItem, "Veste de David Martinez") || strings.EqualFold(selectedItem, "Veste de David"):
-			c.EquipArmor(selectedItem, 30)
-			// Retire l'objet de l'inventaire après équipement
-			c.Inventory = append(c.Inventory[:idx], c.Inventory[idx+1:]...)
+		case strings.Contains(itemLower, "grenade neurotoxique"):
+			fmt.Println(Red + "\n C'est une arme de combat ! Utilise-la durant un affrontement." + Reset)
 
-		case strings.EqualFold(selectedItem, "Pare-balle Arasaka"):
-			c.EquipArmor(selectedItem, 50)
-			// Retire l'objet de l'inventaire après équipement
-			c.Inventory = append(c.Inventory[:idx], c.Inventory[idx+1:]...)
+		// --- ARMURES & PROTECTIONS ---
+		case strings.Contains(itemLower, "veste de david"):
+			c.EquipArmor("Veste de David Martinez", 77)
+			c.RemoveInventory(itemIdx - 1)
+
+		case strings.Contains(itemLower, "plastron arasaka") || strings.Contains(itemLower, "pare-balle arasaka"):
+			c.EquipArmor("Plastron Arasaka", 35)
+			c.RemoveInventory(itemIdx - 1)
+
+		case strings.Contains(itemLower, "plastron mercenaire"):
+			c.EquipArmor("Plastron Mercenaire", 25)
+			c.RemoveInventory(itemIdx - 1)
+
+		// --- UPGRADES & SACS ---
+		case strings.Contains(itemLower, "extension sac"):
+			c.MaxInventory += 5
+			fmt.Printf("\n Extension appliquée ! Capacité d'inventaire augmentée à %d slots.\n", c.MaxInventory)
+			c.RemoveInventory(itemIdx - 1)
+
+		case strings.Contains(itemLower, "puce de combat"):
+			fmt.Println("\n Puce d'amélioration détectée ! Rendez-vous à l'Atelier Cyberware pour l'installer.")
+
+		// --- COMPOSANTS DE CRAFT ---
+		case strings.Contains(itemLower, "composant"):
+			fmt.Println("\n Matériau d'artisanat. Utilise-le chez le Forgeron / Atelier Cyberware.")
 
 		default:
-			fmt.Printf("\n⚠️ Impossible d'équiper ou d'utiliser [%s] directement.\n", selectedItem)
+			fmt.Printf(Red+"\nImpossible d'utiliser [%s] directement depuis le menu.\n"+Reset, selectedItem)
 		}
 
 		fmt.Print("\nAppuyez sur Entrée pour continuer...")
