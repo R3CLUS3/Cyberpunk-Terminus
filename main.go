@@ -39,7 +39,7 @@ func main() {
 	fmt.Print(Yellow + Cyber + Reset)
 	fmt.Println("=== INITIALISATION DU SYSTÈME CYBERPUNK ===")
 
-	fmt.Print("Entrez votre identifiant : ")
+	fmt.Print(Blue + "Entrez votre identifiant : " + Reset)
 	nameInput, _ := reader.ReadString('\n')
 	name := strings.TrimSpace(nameInput)
 
@@ -47,9 +47,9 @@ func main() {
 	var class string
 	for {
 		fmt.Println("\nChoisissez votre origine :")
-		fmt.Println("1. Gosse des rues")
-		fmt.Println("2. Netrunner")
-		fmt.Println("3. Corpo")
+		fmt.Println(Yellow + "1. Gosse des rues" + Reset)
+		fmt.Println(Blue + "2. Netrunner" + Reset)
+		fmt.Println(Red + "3. Corpo" + Reset)
 		fmt.Print("Votre choix (1-3) : ")
 
 		classInput, _ := reader.ReadString('\n')
@@ -81,14 +81,14 @@ func main() {
 		fmt.Println("│             SYS.NET // MENU PRINCIPAL            │")
 		fmt.Println("├──────────────────────────────────────────────────┤")
 		fmt.Println("│  H. Aide & Guide du jeu                          │")
-		fmt.Println("│  1. Afficher les informations du personnage      │")
-		fmt.Println("│  2. Accéder au contenu de l'inventaire           │")
+		fmt.Println("│  1. informations du personnage                   │")
+		fmt.Println("│  2. inventaire                                   │")
 		fmt.Println("│  3. Visiter le Marchand                          │")
-		fmt.Println("│  4. Atelier Cyberware (Forgeron)                 │")
+		fmt.Println("│  4. Atelier Cyberware                            │")
 		fmt.Println("│  5. Lancer un combat d'entraînement              │")
-		fmt.Println("│  6. Raid Complexe Militech (Mini-carte)          │")
-		fmt.Println("│  7. Raid Arasaka Tower (Mini-carte)              │")
-		fmt.Println("│  8. Duel contre les Légendes de Night City       │")
+		fmt.Println(Yellow + "│  6. Raid Complexe Militech                       │" + Reset)
+		fmt.Println(Red + "│  7. Raid Arasaka Tower                           │" + Reset)
+		fmt.Println(Green + "│  8. Duel contre les Légendes de Night City       │" + Reset)
 		fmt.Println("│  9. Quitter                                      │")
 		fmt.Println("└──────────────────────────────────────────────────┘")
 		fmt.Print("Entrez votre choix (1-9) : ")
