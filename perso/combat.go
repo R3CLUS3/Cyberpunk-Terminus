@@ -18,15 +18,15 @@ func (c *Character) StartTrainingFight() {
 
 	for {
 		enemy := GenerateBot(wave)
-		fmt.Printf("\n🚨 [ENTRÉE EN ARÈNE] VAGUE %d : Un %s s'approche !\n\n", wave, enemy.Name)
+		fmt.Printf(Red+"\n [ENTRÉE EN ARÈNE] VAGUE %d : Un %s s'approche !\n\n"+Reset, wave, enemy.Name)
 
 		// Boucle de combat contre un ennemi
 		for !c.IsDead() && !enemy.IsDead() {
-			fmt.Printf("--- [ VAGUE %d - TOUR ] ---------------------------\n", wave)
-			fmt.Printf("👤 %s : %d/%d HP  │   %s : %d/%d HP\n", c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
+			fmt.Printf(Red+"--- [ VAGUE %d - TOUR ] ---------------------------\n"+Reset, wave)
+			fmt.Printf(" %s : %d/%d HP  │   %s : %d/%d HP\n", c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
 			fmt.Println("--------------------------------------------------")
-			fmt.Println("1. Attaquer (Compétences)")
-			fmt.Println("2. Inventaire (Utiliser un objet)")
+			fmt.Println(Red + "1. Attaquer (Compétences)" + Reset)
+			fmt.Println(Yellow + "2. Inventaire (Utiliser un objet)" + Reset)
 			fmt.Print("Choisissez votre action (1-2) : ")
 
 			actionInput, _ := reader.ReadString('\n')
@@ -36,7 +36,7 @@ func (c *Character) StartTrainingFight() {
 
 			switch action {
 			case "1":
-				fmt.Println("\n--- Compétences ---")
+				fmt.Println(Red + "\n--- Compétences ---" + Reset)
 				for i, s := range c.Skills {
 					fmt.Printf("%d. %s (%d dmg)\n", i+1, s.Name, s.Damage)
 				}
@@ -54,7 +54,7 @@ func (c *Character) StartTrainingFight() {
 					if enemy.CurrentHP < 0 {
 						enemy.CurrentHP = 0
 					}
-					fmt.Printf("\n💥 [%s] inflige %d dégâts à %s !\n", selectedSkill.Name, selectedSkill.Damage, enemy.Name)
+					fmt.Printf(Red+"\n [%s] inflige %d dégâts à %s !\n"+Reset, selectedSkill.Name, selectedSkill.Damage, enemy.Name)
 					turnExecuted = true
 				} else {
 					fmt.Println(Red + "\nChoix invalide." + Reset)
@@ -64,7 +64,7 @@ func (c *Character) StartTrainingFight() {
 				if len(c.Inventory) == 0 {
 					fmt.Println(Red + "\nInventaire vide." + Reset)
 				} else {
-					fmt.Println("\n--- Inventaire ---")
+					fmt.Println(Yellow + "\n--- Inventaire ---" + Reset)
 					for i, item := range c.Inventory {
 						fmt.Printf("%d. %s\n", i+1, item)
 					}
@@ -98,7 +98,7 @@ func (c *Character) StartTrainingFight() {
 				if c.CurrentHP < 0 {
 					c.CurrentHP = 0
 				}
-				fmt.Printf(" %s attaque et inflige %d dégâts !\n\n", enemy.Name, enemy.Attack)
+				fmt.Printf(Red+" %s attaque et inflige %d dégâts !\n\n"+Reset, enemy.Name, enemy.Attack)
 
 				if c.CurrentHP <= 0 {
 					c.Death() // Déclenche la gestion de mort
@@ -109,15 +109,15 @@ func (c *Character) StartTrainingFight() {
 
 		// Ennemi Vaincu
 		if enemy.IsDead() {
-			fmt.Printf("\n [CIBLE DÉTRUITE] %s éliminé !\n", enemy.Name)
+			fmt.Printf(Yellow+"\n [CIBLE DÉTRUITE] %s éliminé !\n"+Reset, enemy.Name)
 			c.Money += enemy.RewardED
-			fmt.Printf(" +%d $ED gagnés (Solde: %d $ED)\n", enemy.RewardED, c.Money)
+			fmt.Printf(Yellow+" +%d $ED gagnés (Solde: %d $ED)\n"+Reset, enemy.RewardED, c.Money)
 			c.AddXP(enemy.RewardXP)
 
 			// Demande si le joueur veut continuer les vagues
-			fmt.Println("\nVoulez-vous continuer vers la vague suivante ?")
+			fmt.Println(Green + "\nVoulez-vous continuer vers la vague suivante ?")
 			fmt.Println("1. Continuer le combat (Vague suivante)")
-			fmt.Println("2. Quitter l'arène")
+			fmt.Println("2. Quitter l'arène" + Reset)
 			fmt.Print("Choix (1-2) : ")
 
 			nextInput, _ := reader.ReadString('\n')
