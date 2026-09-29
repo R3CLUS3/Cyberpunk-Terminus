@@ -17,11 +17,11 @@ type Monster struct {
 // GenerateBot crée un bot adapté au niveau de la vague courante
 func GenerateBot(wave int) Monster {
 	names := []string{
-		"Bot de Securité Militech",
-		"Drone d'Arasaka",
-		"Cyber-Trooper Kang Tao",
-		"Android de Combat Trauma Team",
-		"Proto-Mecha NetWatch",
+		Yellow + "Bot de Securité Militech" + Reset,
+		Red + "Drone d'Arasaka" + Reset,
+		Blue + "Cyber-Trooper Kang Tao" + Reset,
+		Cyan + "Cyber-Android de Combat Trauma Team" + Reset,
+		magenta + "Proto-Mecha NetWatch" + Reset,
 	}
 
 	selectedName := names[rand.Intn(len(names))]

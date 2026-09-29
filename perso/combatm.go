@@ -157,7 +157,7 @@ func (c *Character) StartRaidMilitech() {
 
 				if !hasSkill {
 					c.Skills = append(c.Skills, Skill{
-						Name:    "Cybersquelette Militech",
+						Name:    Red + "Cybersquelette Militech" + Reset,
 						Damage:  120,
 						Uses:    8,
 						IsFatal: true,
@@ -188,19 +188,19 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 
 	for !c.IsDead() && !enemy.IsDead() {
 		ClearScreen()
-		fmt.Println("==========================================")
+		fmt.Println(Red + "==========================================")
 		fmt.Printf("   COMBAT : %s\n", enemy.Name)
-		fmt.Println("==========================================")
+		fmt.Println("==========================================" + Reset)
 		fmt.Printf(" Vos PV : %d/%d HP | Ennemi : %d/%d HP\n", c.CurrentHP, c.MaxHP, enemy.CurrentHP, enemy.MaxHP)
-		fmt.Println("------------------------------------------")
+		fmt.Println(Red + "------------------------------------------" + Reset)
 
 		if lastAction != "" {
 			fmt.Println(lastAction)
 			fmt.Println("------------------------------------------")
 		}
 
-		fmt.Println("1. Attaquer (Compétences)")
-		fmt.Println("2. Utiliser Stimpack")
+		fmt.Println(Red + "1. Attaquer (Compétences)" + Reset)
+		fmt.Println(magenta + "2. Utiliser Stimpack" + Reset)
 		fmt.Print("Choix : ")
 
 		input, _ := reader.ReadString('\n')
@@ -209,9 +209,9 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 		turnExecuted := false
 
 		if choice == "1" {
-			fmt.Println("\n--- Compétences ---")
+			fmt.Println(Red + "\n--- Compétences ---" + Reset)
 			for i, s := range c.Skills {
-				fmt.Printf("%d. %s (%d dmg)\n", i+1, s.Name, s.Damage)
+				fmt.Printf(Red+"%d. %s (%d dmg)\n"+Reset, i+1, s.Name, s.Damage)
 			}
 			fmt.Print("Choix : ")
 
@@ -222,7 +222,7 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 			if skillIndex >= 1 && skillIndex <= len(c.Skills) {
 				selectedSkill := c.Skills[skillIndex-1]
 				enemy.CurrentHP -= selectedSkill.Damage
-				lastAction = fmt.Sprintf(" Vous attaquez avec [%s] (-%d HP) !", selectedSkill.Name, selectedSkill.Damage)
+				lastAction = fmt.Sprintf(Red+" Vous attaquez avec [%s] (-%d HP) !"+Reset, selectedSkill.Name, selectedSkill.Damage)
 				turnExecuted = true
 			} else {
 				lastAction = "Choix de compétence invalide."
@@ -233,7 +233,7 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 			for idx, item := range c.Inventory {
 				if strings.EqualFold(item, "Stimpack") {
 					c.Heal(idx)
-					lastAction = " Stimpack utilisé (+50 HP) !"
+					lastAction = Green + " Stimpack utilisé (+50 HP) !" + Reset
 					turnExecuted = true
 					found = true
 					break
@@ -246,7 +246,7 @@ func (c *Character) fightRaidEnemy(enemy *Monster) {
 
 		if turnExecuted && !enemy.IsDead() {
 			c.CurrentHP -= enemy.Attack
-			lastAction += fmt.Sprintf("\n%s riposte (-%d HP) !", enemy.Name, enemy.Attack)
+			lastAction += fmt.Sprintf(Red+"\n%s riposte (-%d HP) !"+Reset, enemy.Name, enemy.Attack)
 
 			if c.CurrentHP <= 0 {
 				c.Death()

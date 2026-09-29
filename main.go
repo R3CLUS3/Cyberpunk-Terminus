@@ -10,11 +10,13 @@ import (
 )
 
 const (
-	Red    = "\033[31m"
-	Green  = "\033[32m"
-	Yellow = "\033[33m"
-	Blue   = "\033[34m"
-	Reset  = "\033[0m"
+	Red     = "\033[31m"
+	Green   = "\033[32m"
+	Yellow  = "\033[33m"
+	Blue    = "\033[34m"
+	Reset   = "\033[0m"
+	Cyan    = "\033[36m"
+	magenta = "\033[35m"
 )
 
 func main() {
@@ -80,12 +82,12 @@ func main() {
 		fmt.Println("┌──────────────────────────────────────────────────┐")
 		fmt.Println("│             SYS.NET // MENU PRINCIPAL            │")
 		fmt.Println("├──────────────────────────────────────────────────┤")
-		fmt.Println("│  H. Aide & Guide du jeu                          │")
-		fmt.Println("│  1. informations du personnage                   │")
-		fmt.Println("│  2. inventaire                                   │")
-		fmt.Println("│  3. Visiter le Marchand                          │")
-		fmt.Println("│  4. Atelier Cyberware                            │")
-		fmt.Println("│  5. Lancer un combat d'entraînement              │")
+		fmt.Println(Green + "│  H. Aide & Guide du jeu                          │" + Reset)
+		fmt.Println(Yellow + "│  1. informations du personnage                   │" + Reset)
+		fmt.Println(magenta + "│  2. inventaire                                   │" + Reset)
+		fmt.Println(Red + "│  3. Visiter le Marchand                          │" + Reset)
+		fmt.Println(Cyan + "│  4. Atelier Cyberware                            │" + Reset)
+		fmt.Println(magenta + "│  5. Lancer un combat d'entraînement              │" + Reset)
 		fmt.Println(Yellow + "│  6. Raid Complexe Militech                       │" + Reset)
 		fmt.Println(Red + "│  7. Raid Arasaka Tower                           │" + Reset)
 		fmt.Println(Green + "│  8. Duel contre les Légendes de Night City       │" + Reset)

@@ -3,11 +3,13 @@ package perso
 import "fmt"
 
 const (
-	Red    = "\033[31m"
-	Green  = "\033[32m"
-	Yellow = "\033[33m"
-	Blue   = "\033[34m"
-	Reset  = "\033[0m"
+	Red     = "\033[31m"
+	Green   = "\033[32m"
+	Yellow  = "\033[33m"
+	Blue    = "\033[34m"
+	Reset   = "\033[0m"
+	Cyan    = "\033[36m"
+	magenta = "\033[35m"
 )
 
 // Heal consomme un objet de soin et soigne le personnage de 50 HP (max HP respecté)
