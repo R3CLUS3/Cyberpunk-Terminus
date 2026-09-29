@@ -32,7 +32,7 @@ func main() {
 ▓          █ ▓          █ ▓           ▄▄▀   ▓          █ ▓    █  █    █ ▓    █        ▓          █ ▓   █  █   █ ▓   █  ▓   █
 ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀      ▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀  ▀▀▀▀▀▀ ▀▀▀▀▀▀         ▀▀▀▀▀▀▀▀▀▀   ▀▀▀   ▀▀▀▀  ▀▀▀▀▀  ▀▀▀▀▀
                                                             
-					[ SYSTEM CYBERPUNK TERMINUS // v1.0.1 ] 
+					[ SYSTEM CYBERPUNK TERMINUS // v1.0.2 ] 
 										 				made by Rob1
 `
 	//v1.0.1 : maj majeur.maj mineur.fix bug

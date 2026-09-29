@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	stimpackStock = 17
-	stimpackPrice = 199
+	stimpackStock = 24
+	stimpackPrice = 99
 
 	poisonStock = 6
 	poisonPrice = 299
@@ -28,10 +28,10 @@ var (
 	compBPrice = 129
 
 	compAStock = 2
-	compAPrice = 399
+	compAPrice = 299
 
 	mercenaireStock = 1
-	mercenairePrice = 799
+	mercenairePrice = 699
 
 	arasakaStock = 1
 	arasakaPrice = 999

@@ -144,8 +144,8 @@ func (c *Character) StartRaidMilitech() {
 				fmt.Println(" [VICTOIRE] Le RAID contre Militech est un succès !")
 				fmt.Println("==========================================" + Reset)
 
-				c.Inventory = append(c.Inventory, "Composant [Rang S]", "Composant [Rang S]")
-				fmt.Println(Yellow + " [LOOT] +2x Composant [Rang S] ajoutés !" + Reset)
+				c.Inventory = append(c.Inventory, "Composant Rang S", "Composant Rang S")
+				fmt.Println(Yellow + " [LOOT] +2x Composant Rang S ajoutés !" + Reset)
 
 				hasSkill := false
 				for _, s := range c.Skills {

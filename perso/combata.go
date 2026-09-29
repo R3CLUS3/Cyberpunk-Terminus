@@ -121,8 +121,8 @@ func (c *Character) StartRaidArasaka() {
 				fmt.Println(Blue + "\n[LÉGENDE DE NIGHT CITY] T'as butté Smasher !" + Reset)
 
 				// Loot du Composant Ultime Rang S+
-				c.Inventory = append(c.Inventory, "Composant [Rang S+]")
-				fmt.Println(Yellow + "[LOOT LEGENDAIRE] +1x Composant [Rang S+] ajouté à l'inventaire !" + Reset)
+				c.Inventory = append(c.Inventory, "Composant Rang S+")
+				fmt.Println(Yellow + "[LOOT LEGENDAIRE] +1x Composant Rang S+ ajouté à l'inventaire !" + Reset)
 				return
 			}
 		}
