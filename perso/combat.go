@@ -22,8 +22,8 @@ func (c *Character) StartTrainingFight() {
 
 		// Boucle de combat contre un ennemi
 		for !c.IsDead() && !enemy.IsDead() {
-			fmt.Printf(Red+"--- [ VAGUE %d - TOUR ] ---------------------------\n"+Reset, wave)
-			fmt.Printf(" %s : %d/%d HP  │   %s : %d/%d HP\n", c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
+			fmt.Printf("--- [ VAGUE %d - TOUR ] ---------------------------\n", wave)
+			fmt.Printf(Green+" %s : %d/%d HP  │   %s : %d/%d HP\n"+Reset, c.Name, c.CurrentHP, c.MaxHP, enemy.Name, enemy.CurrentHP, enemy.MaxHP)
 			fmt.Println("--------------------------------------------------")
 			fmt.Println(Red + "1. Attaquer (Compétences)" + Reset)
 			fmt.Println(Yellow + "2. Inventaire (Utiliser un objet)" + Reset)
