@@ -1,3 +1,4 @@
+// structure des armures etc..
 package perso
 
 import (

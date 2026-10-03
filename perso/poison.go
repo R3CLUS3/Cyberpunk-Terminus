@@ -1,3 +1,4 @@
+// poison a ameliorer parce que bug
 package perso
 
 import (

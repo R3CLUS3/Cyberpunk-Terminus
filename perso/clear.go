@@ -1,3 +1,4 @@
+// le clear de l'écran
 package perso
 
 import (

@@ -1,3 +1,4 @@
+// combat d'entraînement
 package perso
 
 import (

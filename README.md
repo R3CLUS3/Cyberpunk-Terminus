@@ -1,6 +1,6 @@
 # 🌆 Cyberpunk Terminus
 
-> **SYS.NET // TERMINAL INTERFACE v1.0.2**  
+> **SYS.NET // TERMINAL INTERFACE v1.0.3**  
 > Un jeu de rôle et de tactique textuel dans l'univers de Night City, codé en **Go**.
 
 ---

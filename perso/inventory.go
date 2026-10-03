@@ -1,3 +1,4 @@
+// inventaire etc..
 package perso
 
 import (

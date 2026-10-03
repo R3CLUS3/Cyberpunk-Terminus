@@ -1,3 +1,4 @@
+// stimpack
 package perso
 
 import "fmt"

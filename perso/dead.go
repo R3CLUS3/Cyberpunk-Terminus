@@ -1,3 +1,4 @@
+// quand tu es mort
 package perso
 
 import (

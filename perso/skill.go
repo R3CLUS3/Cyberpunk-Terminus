@@ -1,3 +1,4 @@
+// structure des skill etc..
 package perso
 
 import (

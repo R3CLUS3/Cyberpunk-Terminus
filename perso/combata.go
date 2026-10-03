@@ -1,3 +1,4 @@
+// combat contre arasaka
 package perso
 
 import (

@@ -1,3 +1,4 @@
+// structure des ennemis etc..
 package perso
 
 import (

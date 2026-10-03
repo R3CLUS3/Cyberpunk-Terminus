@@ -1,3 +1,7 @@
+// menu principal du jeu cyberpunk. Il permet au joueur de créer son personnage, de choisir sa classe,
+// et d'accéder à différentes fonctionnalités du jeu
+// telles que l'inventaire, le marchand, l'atelier cyberware, les combats d'entraînement,
+// les raids et les duels contre les légendes de Night City.
 package main
 
 import (

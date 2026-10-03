@@ -1,3 +1,4 @@
+// fonctions etc des items, armes, etc
 package perso
 
 import "strings"

@@ -1,3 +1,4 @@
+// structure du perso etc..
 package perso
 
 import (
